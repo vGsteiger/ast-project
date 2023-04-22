@@ -8,6 +8,7 @@ import random
 import string
 import math
 import shutil
+import stat
 
 
 def generate_source_code(args):
@@ -20,15 +21,15 @@ def generate_source_code(args):
         # Generate random source code with csmith:
         cmsmith_args = (
             "--max-expr-complexity="
-            + str(args.size)
-            + " --max-expr-depth="
-            + str(args.size)
+            + str(len(vars(args)))
+#            + " --max-expr-depth "
+#            + str(len(vars(args)))
         )
         if args.optional_csmith_args is not None:
             cmsmith_args += " " + args.optional_csmith_args
         source_code = subprocess.check_output(
-            [args.csmith, cmsmith_args], universal_newlines=True
-        ).decode("utf-8")
+            [args.csmith], universal_newlines=True
+        )#.decode("utf-8")
     else:
         logging.error("No source code generation method specified")
         sys.exit(1)
@@ -103,6 +104,31 @@ def calculate_source_code_size(source_code) -> int:
 
     return size
 
+def calculate_source_and_binary_size(source_code):
+    #print(source_code)
+    with open("temp.c", "w") as f:
+        f.write(source_code)
+
+    size = os.path.getsize("temp.c")
+    print(size)
+    open('temp.o', 'w')
+
+    # TODO: it should be possible to specify the gcc params
+    res = subprocess.run(["gcc", "temp.c", "-o", "temp.o", "-w", "-I/home/nikch/csmith-install/include/"], check=True)
+    #print(res.stdout)
+    #print(res.stderr)
+    
+    #bin_size = os.stat("temp.o").st_size
+    #time.sleep(5)
+    bin_size = os.path.getsize("temp.o")
+
+    print(size, " test ", bin_size)
+
+    os.remove("temp.c")
+    os.remove("temp.o")
+
+    return size, bin_size
+
 
 def calculate_binary_size(binary_path) -> int:
     return os.path.getsize(binary_path)
@@ -124,29 +150,68 @@ def calculate_heuristic_value(
 
 
 def generate_reduced_source_code_candidates(args, source_code) -> list[str]:
-    num_candidates = args.cvsise_candidates
+    num_candidates = args.cvise_candidates
 
     # TODO: Are these the correct options?
     cvise_options = [
         "--reduce",
-        f"--count={num_candidates}",
-        "--output-directory=candidates",
-        "--max-iterations=1000",
+        f"--count {num_candidates}",
+        "--output-directory candidates",
+        "--max-iterations 1000",
     ]
 
+    sz, bin_sz = calculate_source_and_binary_size(source_code)
+    with open("temp.c", "w") as f:
+        f.write(source_code)
+
+# IS THIS THE HEURISTIC???
+# problem: cvise needs to pass the test on the input c file -> the binary size does not go up, rather stays the same
+# -> sol1?: try to save more than one candidates and filter according to own heuristic
+# (-> sol2?: try to use different check (ratio instead of size)) -> does not help much
+# -> sol3?: try to provide cvise with regressional value instead of boolean (possible?)
+    testing_script_py = """
+import sys
+import subprocess
+import os
+subprocess.run(["gcc", "temp.c", "-o", "temp.o", "-w", "-I/home/nikch/csmith-install/include/"], check=True)    
+bin_size = os.path.getsize("temp.o")
+if bin_size >= """ + str(bin_sz) + """:
+  print("0")
+  sys.exit(0)
+else:
+  print("1")
+  sys.exit(1)
+    """
+
+    with open("testing_script_py.py", "w") as f:
+        f.write(testing_script_py)
+    testing_script = """
+cp /home/nikch/Documents/Repositories/ast-project/testing_script_py.py .
+python testing_script_py.py
+    """
+    with open("testing_script.sh", "w") as f:
+        f.write(testing_script)
+    st = os.stat('testing_script.sh')
+    os.chmod('testing_script.sh', st.st_mode | stat.S_IEXEC)
+
     # Use C-Vise to generate the candidates
-    subprocess.run([args.cvsise, *cvise_options, source_code], check=True)
+#    subprocess.run([args.cvise, *cvise_options, source_code], check=True)
+    #SUUUUPER slow...
+    subprocess.run([args.cvise, "testing_script.sh", "temp.c", "--timeout", "1"], check=True)
 
     # Read the candidates from the output directory
-    candidates = []
-    for file in os.listdir("candidates"):
-        with open(os.path.join("candidates", file), "r") as f:
-            candidates.append(f.read())
+#    candidates = []
+#    for file in os.listdir("candidates"):
+#        with open(os.path.join("candidates", file), "r") as f:
+#            candidates.append(f.read())
 
     # Remove the output directory
-    shutil.rmtree("candidates")
+#    shutil.rmtree("candidates")
 
-    return candidates
+    with open("temp.c", "r") as f:
+        candidate = f.read()
+
+    return [candidate] #candidates
 
 
 def filter_reduced_source_code_candidates(args, source_code, candidates) -> list[str]:
@@ -240,7 +305,7 @@ def main():
     parser.add_argument("--csmith", type=str, help="path to csmith", required=True)
     parser.add_argument("--cvise", type=str, help="path to cvise", required=True)
     parser.add_argument(
-        "--cvsise-canidates", type=int, help="number of cvsise canidates", default=20
+        "--cvise-candidates", type=int, help="number of cvsise canidates", default=20
     )
     parser.add_argument("--compiler", type=str, help="path to compiler", required=True)
     parser.add_argument("--compiler-args", type=str, help="compiler arguments")
@@ -255,9 +320,9 @@ def main():
     )
 
     # Check if framework exists
-    if not os.path.exists(args.framework):
-        logging.error("Framework does not exist: %s", args.framework)
-        sys.exit(1)
+#    if not os.path.exists(args.framework):
+#        logging.error("Framework does not exist: %s", args.framework)
+#        sys.exit(1)
 
     # Check if source code example file
     if args.example is not None and not os.path.exists(args.example):
@@ -278,3 +343,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# cmd: python src/srcreduce/main.py --csmith /home/nikch/csmith-install/bin/csmith --cvise cvise --compiler g++ --random --output tmpsrc.c
+# achtung, hardgecodete paths etc...
+# es macht schonmal, aber dauert etwas zu lange zurzeit
