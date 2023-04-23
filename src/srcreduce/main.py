@@ -17,19 +17,18 @@ def generate_source_code(args):
         with open(args.example, "r") as f:
             source_code = f.read()
     elif args.random:
+        logging.info("Generating random source code")
         source_code = ""
         # Generate random source code with csmith:
         cmsmith_args = (
             "--max-expr-complexity="
             + str(len(vars(args)))
-#            + " --max-expr-depth "
-#            + str(len(vars(args)))
         )
         if args.optional_csmith_args is not None:
             cmsmith_args += " " + args.optional_csmith_args
         source_code = subprocess.check_output(
             [args.csmith], universal_newlines=True
-        )#.decode("utf-8")
+        )
     else:
         logging.error("No source code generation method specified")
         sys.exit(1)
@@ -40,53 +39,54 @@ def generate_source_code(args):
     return source_code
 
 
-def run_framework(args, source_code):
+def run(args):
     start_time: int = time.time()
 
-    last_source_code: str = source_code
+    last_source_code_path: str = os.path.abspath(args.output)
     last_binary_path: str = None
     last_heuristic_value: float = None
     i = 0
 
+    logging.info("Reducing")
+
     while start_time + args.timeout > time.time() and i < args.max_iterations:
-        candidates: list[str] = generate_reduced_source_code_candidates(
-            args, source_code
-        )
-        candidates: list[str] = filter_reduced_source_code_candidates(
-            args, source_code, candidates
-        )
+        logging.info("Iteration %d", i)
+        for i in range(5):
+            candidate: str = generate_reduced_source_code_candidate(
+                args, last_source_code_path, i
+            )
 
-        candidate_scores: dict[str:float] = dict()
+            if candidate is None:
+                logging.error("Candidate generation failed")
+                continue
 
-        for candidate in candidates:
+            logging.info(candidate)
+
+            candidate_scores: dict[str:float] = dict()
+
             binary_path: str = compile_source_code(args, candidate)
             if binary_path is None:
                 logging.error("Compilation failed")
                 continue
 
             heuristic_value: float = calculate_heuristic_value(
-                args, source_code, candidate, last_binary_path, binary_path
+                args, last_source_code_path, candidate, last_binary_path, binary_path
             )
-            if heuristic_value > last_heuristic_value:
-                candidates.remove(candidate)
-                continue
 
             candidate_scores[candidate] = heuristic_value
 
-        if len(candidate_scores) == 0:
-            logging.info("No further reduction possible")
-            break
-
         best_candidate: str = min(candidate_scores, key=candidate_scores.get)
-        last_source_code = best_candidate
-        last_binary_path = compile_source_code(args, best_candidate)
-        last_heuristic_value = candidate_scores[best_candidate]
+        logging.info("Best candidate: %s", best_candidate)
+        logging.info("Heuristic value: %f", candidate_scores[best_candidate])
+        if last_heuristic_value is not None and candidate_scores[best_candidate] >= last_heuristic_value:
+            logging.info("No improvement")
+        else:
+            logging.info("Improvement")
+            last_source_code_path = best_candidate
+            last_binary_path = compile_source_code(args, best_candidate)
+            last_heuristic_value = candidate_scores[best_candidate]
 
-    if args.show:
-        print(last_source_code)
-
-    with open(args.generated, "w") as f:
-        f.write(last_source_code)
+    shutil.copyfile(last_source_code_path, args.generated)
 
     if i == args.max_iterations:
         logging.info("Finished after %d iterations", i)
@@ -94,37 +94,18 @@ def run_framework(args, source_code):
         logging.info("Finished after %d seconds", time.time() - start_time)
 
 
-def calculate_source_code_size(source_code) -> int:
-    with open("temp.c", "w") as f:
-        f.write(source_code)
+def calculate_source_code_size(source_code_path) -> int:
+    return os.path.getsize(source_code_path)
 
-    size = os.path.getsize("temp.c")
+def calculate_source_and_binary_size(args, source_code_path):
+    size = os.path.getsize(source_code_path)
 
-    os.remove("temp.c")
+    res = subprocess.run(["gcc", f"{source_code_path}", "-o", "temp.o", "-w", f"-I{args.csmith_include}"], check=True)
 
-    return size
-
-def calculate_source_and_binary_size(source_code):
-    #print(source_code)
-    with open("temp.c", "w") as f:
-        f.write(source_code)
-
-    size = os.path.getsize("temp.c")
-    print(size)
-    open('temp.o', 'w')
-
-    # TODO: it should be possible to specify the gcc params
-    res = subprocess.run(["gcc", "temp.c", "-o", "temp.o", "-w", "-I/home/nikch/csmith-install/include/"], check=True)
-    #print(res.stdout)
-    #print(res.stderr)
-    
-    #bin_size = os.stat("temp.o").st_size
-    #time.sleep(5)
     bin_size = os.path.getsize("temp.o")
 
     print(size, " test ", bin_size)
 
-    os.remove("temp.c")
     os.remove("temp.o")
 
     return size, bin_size
@@ -140,8 +121,8 @@ def calculate_binary_size_difference(binary1_path, binary2_path) -> int:
 
 def calculate_heuristic_value(
     args,
-    original_source_code,
-    reduced_source_code,
+    original_source_code_path,
+    reduced_source_code_path,
     original_binary_path,
     reduced_binary_path,
 ) -> float:
@@ -149,18 +130,72 @@ def calculate_heuristic_value(
     return 0
 
 
-def generate_reduced_source_code_candidates(args, source_code) -> list[str]:
-    num_candidates = args.cvise_candidates
+def generate_reduced_source_code_candidate(args, source_code_path, iteration) -> str:
+    num_candidates = args.candidates
 
-    # TODO: Are these the correct options?
-    cvise_options = [
-        "--reduce",
-        f"--count {num_candidates}",
-        "--output-directory candidates",
-        "--max-iterations 1000",
+    if args.cvise:
+        return generate_cvise_candidates(args, source_code_path, num_candidates)
+    elif args.creduce:
+        return generate_creduce_candidate(args, source_code_path, num_candidates, iteration)
+    else:
+        logging.error("No valid candidate generation method specified")
+        sys.exit(1)
+
+
+def generate_creduce_candidate(args, source_code_path, num_candidates, iteration) -> str:
+    credue_options = [
     ]
 
-    sz, bin_sz = calculate_source_and_binary_size(source_code)
+    if source_code_path.split("_")[-1].split(".")[0].isdigit():
+        new_source_code_path = source_code_path.split("_")[:-2] + f"_{iteration}.c"
+    else:
+        new_source_code_path = source_code_path[:-2] + f"_{iteration}.c"
+
+    shutil.copyfile(source_code_path, new_source_code_path)
+
+    local_new_source_code_path = os.path.basename(new_source_code_path)
+
+    # TODO: Make this faster, improve as it is part of the heuristic
+    interestingness_test = f"""
+    #!/bin/bash
+    gcc {source_code_path} -o orig.o -w -I{args.csmith_include}
+    gcc {local_new_source_code_path} -o tmp.o -w -I{args.csmith_include}
+
+    # If the new binary does not run at all, it is not interesting
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+
+    # If the new binary is bigger than the original, it is interesting
+    if [ $(stat -f%z tmp.o) -ge $(($(stat -f%z orig.o) - 1)) ]; then
+        exit 0
+    fi
+
+    exit 1
+    """
+
+    with open("interestingness_test.sh", "w") as f:
+        f.write(interestingness_test)
+    
+    os.chmod("interestingness_test.sh", 0o777)
+
+    logging.info("Running creduce")
+
+    subprocess.run(
+        [
+            args.creduce,
+            "interestingness_test.sh",
+            new_source_code_path,
+            *credue_options,
+        ]
+    )
+    
+    return new_source_code_path
+
+# TODO: source_code is now a path, not a file!
+def generate_cvise_candidates(args, source_code, num_candidates) -> list[str]:
+
+    sz, bin_sz = calculate_source_and_binary_size(args, source_code)
     with open("temp.c", "w") as f:
         f.write(source_code)
 
@@ -213,37 +248,19 @@ python testing_script_py.py
 
     return [candidate] #candidates
 
-
-def filter_reduced_source_code_candidates(args, source_code, candidates) -> list[str]:
-    for candidate in candidates:
-        if calculate_source_code_size(candidate) >= calculate_source_code_size(
-            source_code
-        ):
-            candidates.remove(candidate)
-    return candidates
-
-
-def compile_source_code(args, source_code) -> str:
+def compile_source_code(args, source_code_path) -> str:
     source_file_binary = get_random_file_name()
-    source_file_name = source_file_binary + ".c"
-
-    # Create a temporary file for the source code
-    with open(source_file_name, "w") as f:
-        f.write(source_code)
 
     # Use gcc to compile the source code
     try:
-        subprocess.check_output(
-            [args.compiler, source_file_name, "-o", source_file_binary, args.compiler_args],
+        subprocess.run(
+            [args.compiler, source_code_path, "-o", source_file_binary, args.compiler_args, "-E -P"],
             stderr=subprocess.STDOUT,
         )
     except subprocess.CalledProcessError as e:
         # Compilation failed, print the error message and return None
         print("Compilation failed with error:\n", e.output.decode())
         return None
-    finally:
-        # Remove the temporary source code file
-        os.remove(source_file_name)
 
     # Compilation succeeded, return the path to the binary
     binary_path = os.path.abspath(source_file_binary)
@@ -303,9 +320,11 @@ def main():
         "--optional-csmith-args", type=str, help="optional csmith arguments"
     )
     parser.add_argument("--csmith", type=str, help="path to csmith", required=True)
-    parser.add_argument("--cvise", type=str, help="path to cvise", required=True)
+    parser.add_argument("--csmith-include", type=str, help="path to csmith include", required=True)
+    parser.add_argument("--cvise", type=str, help="path to cvise")
+    parser.add_argument("--creduce", type=str, help="path to creduce")
     parser.add_argument(
-        "--cvise-candidates", type=int, help="number of cvsise canidates", default=20
+        "--candidates", type=int, help="number of cvsise canidates", default=20
     )
     parser.add_argument("--compiler", type=str, help="path to compiler", required=True)
     parser.add_argument("--compiler-args", type=str, help="compiler arguments")
@@ -318,11 +337,6 @@ def main():
         format="%(levelname)s: %(message)s",
         level=logging.DEBUG if args.verbose else logging.INFO,
     )
-
-    # Check if framework exists
-#    if not os.path.exists(args.framework):
-#        logging.error("Framework does not exist: %s", args.framework)
-#        sys.exit(1)
 
     # Check if source code example file
     if args.example is not None and not os.path.exists(args.example):
@@ -338,12 +352,14 @@ def main():
 
     # Run framework
     logging.info("Running framework")
-    run_framework(args, source_code)
+    run(args)
 
 
 if __name__ == "__main__":
     main()
 
-# cmd: python src/srcreduce/main.py --csmith /home/nikch/csmith-install/bin/csmith --cvise cvise --compiler g++ --random --output tmpsrc.c
+# cmd: python src/srcreduce/main.py --csmith /home/nikch/csmith-install/bin/csmith --cvise cvise --compiler g++ --random --output tmpsrc.c --csmith-include /home/nikch/csmith-install/include/ --generated tmpsrc_reduced.c
 # achtung, hardgecodete paths etc...
 # es macht schonmal, aber dauert etwas zu lange zurzeit
+
+# cmd: python src/srcreduce/main.py --csmith csmith --creduce creduce --compiler g++ --random --output tmpsrc.c --generated tmpsrc_reduced.c --csmith-include /opt/homebrew/Cellar/csmith/2.3.0/include/

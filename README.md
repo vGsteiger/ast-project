@@ -43,7 +43,9 @@ The following options are available:
 - `-e EXAMPLE`, `--example EXAMPLE`: Use example source code generation based on the given example file
 - `--optional-csmith-args OPTIONAL_CSMITH_ARGS`: Optional arguments for csmith
 - `--csmith`: Path to csmith binary
+- `--csmith-includes`: Path to csmith includes
 - `--cvise`: Path to cvise binary
-- `--cvsise-canidates`: Number of cvise candidates, default: 20
+- `--credce`: Path to credce binary
+- `--canidates`: Number of candidates, default: 20
 - `--compiler`: Path to compiler binary
 - `--compiler-args`: Optional arguments for compiler
