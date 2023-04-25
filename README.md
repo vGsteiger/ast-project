@@ -37,6 +37,7 @@ The following options are available:
 - `-o OUTPUT`, `--output OUTPUT`: Output file for the generated source code
 - `-s`, `--show`: Show the generated source code
 - `-t TIMEOUT`, `--timeout TIMEOUT`: Timeout for the framework in seconds
+- `--timeout-credce TIMEOUT_CREDCE`: Timeout for credce in seconds
 - `-m MAX_ITERATIONS`, `--max-iterations MAX_ITERATIONS`: Maximum number of iterations
 - `-r`, `--random`: Use random source code generation
 - `-e EXAMPLE`, `--example EXAMPLE`: Use example source code generation based on the given example file
