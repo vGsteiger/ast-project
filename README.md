@@ -1,6 +1,11 @@
 # Finding Small Code with Large Binaries
 
-Project repository for Automatic Software Testing lecture
+Project repository for Automatic Software Testing lecture project
+
+## Students
+
+- Viktor Gsteiger (vgsteiger@student.ethz.ch)
+- Nikodem Kernbach (nkernbach@student.ethz.ch)
 
 ## Project description
 
@@ -17,6 +22,7 @@ The project is structured as follows:
 - `src`: Contains the source code of the project
 - `src/srcreduce`: Contains the source code of the source code reduction and binary size maximization framework
 - `examples`: Contains example generated source code and the corresponding binary size reduction results
+- `docs`: Contains the reports which make up the project documentation
 
 ## Usage
 
