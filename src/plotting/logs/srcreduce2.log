@@ -1,0 +1,351 @@
+2023-04-29 19:12:13 INFO     Iteration 0
+2023-04-29 19:12:13 INFO     Running creduce
+2023-04-29 19:12:43 INFO     CReduce timed out
+2023-04-29 19:12:43 INFO     Compiling candidates
+2023-04-29 19:12:44 INFO     Source code size difference: 20541, binary size difference: 0
+2023-04-29 19:12:44 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:12:44 INFO     Reduced source code size: 106105, reduced binary size: 65536
+2023-04-29 19:12:44 INFO     Ratio: 0.617652
+2023-04-29 19:12:45 INFO     Source code size difference: 16659, binary size difference: 0
+2023-04-29 19:12:45 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:12:45 INFO     Reduced source code size: 109987, reduced binary size: 65536
+2023-04-29 19:12:45 INFO     Ratio: 0.595852
+2023-04-29 19:12:46 INFO     Source code size difference: 20174, binary size difference: 0
+2023-04-29 19:12:46 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:12:46 INFO     Reduced source code size: 106472, reduced binary size: 65536
+2023-04-29 19:12:46 INFO     Ratio: 0.615523
+2023-04-29 19:12:47 INFO     Source code size difference: 16728, binary size difference: 0
+2023-04-29 19:12:47 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:12:47 INFO     Reduced source code size: 109918, reduced binary size: 65536
+2023-04-29 19:12:47 INFO     Ratio: 0.596226
+2023-04-29 19:12:48 INFO     Source code size difference: 20712, binary size difference: 0
+2023-04-29 19:12:48 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:12:48 INFO     Reduced source code size: 105934, reduced binary size: 65536
+2023-04-29 19:12:48 INFO     Ratio: 0.618649
+2023-04-29 19:12:49 INFO     Source code size difference: 12434, binary size difference: 0
+2023-04-29 19:12:49 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:12:49 INFO     Reduced source code size: 114212, reduced binary size: 65536
+2023-04-29 19:12:49 INFO     Ratio: 0.573810
+2023-04-29 19:12:51 INFO     Source code size difference: 12158, binary size difference: 0
+2023-04-29 19:12:51 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:12:51 INFO     Reduced source code size: 114488, reduced binary size: 65536
+2023-04-29 19:12:51 INFO     Ratio: 0.572427
+2023-04-29 19:12:52 INFO     Source code size difference: 12750, binary size difference: 0
+2023-04-29 19:12:52 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:12:52 INFO     Reduced source code size: 113896, reduced binary size: 65536
+2023-04-29 19:12:52 INFO     Ratio: 0.575402
+2023-04-29 19:12:53 INFO     Source code size difference: 20442, binary size difference: 0
+2023-04-29 19:12:53 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:12:53 INFO     Reduced source code size: 106204, reduced binary size: 65536
+2023-04-29 19:12:53 INFO     Ratio: 0.617077
+2023-04-29 19:12:54 INFO     Source code size difference: 12205, binary size difference: 0
+2023-04-29 19:12:54 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:12:54 INFO     Reduced source code size: 114441, reduced binary size: 65536
+2023-04-29 19:12:54 INFO     Ratio: 0.572662
+2023-04-29 19:12:55 INFO     Source code size difference: 16606, binary size difference: 0
+2023-04-29 19:12:55 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:12:55 INFO     Reduced source code size: 110040, reduced binary size: 65536
+2023-04-29 19:12:55 INFO     Ratio: 0.595565
+2023-04-29 19:12:56 INFO     Source code size difference: 12338, binary size difference: 0
+2023-04-29 19:12:56 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:12:56 INFO     Reduced source code size: 114308, reduced binary size: 65536
+2023-04-29 19:12:56 INFO     Ratio: 0.573328
+2023-04-29 19:12:57 INFO     Source code size difference: 20386, binary size difference: 0
+2023-04-29 19:12:57 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:12:57 INFO     Reduced source code size: 106260, reduced binary size: 65536
+2023-04-29 19:12:57 INFO     Ratio: 0.616751
+2023-04-29 19:12:59 INFO     Source code size difference: 16129, binary size difference: 0
+2023-04-29 19:12:59 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:12:59 INFO     Reduced source code size: 110517, reduced binary size: 65536
+2023-04-29 19:12:59 INFO     Ratio: 0.592995
+2023-04-29 19:13:00 INFO     Source code size difference: 11791, binary size difference: 0
+2023-04-29 19:13:00 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:00 INFO     Reduced source code size: 114855, reduced binary size: 65536
+2023-04-29 19:13:00 INFO     Ratio: 0.570598
+2023-04-29 19:13:01 INFO     Source code size difference: 20004, binary size difference: 0
+2023-04-29 19:13:01 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:01 INFO     Reduced source code size: 106642, reduced binary size: 65536
+2023-04-29 19:13:01 INFO     Ratio: 0.614542
+2023-04-29 19:13:02 INFO     Source code size difference: 20053, binary size difference: 0
+2023-04-29 19:13:02 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:02 INFO     Reduced source code size: 106593, reduced binary size: 65536
+2023-04-29 19:13:02 INFO     Ratio: 0.614825
+2023-04-29 19:13:03 INFO     Source code size difference: 12527, binary size difference: 0
+2023-04-29 19:13:03 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:03 INFO     Reduced source code size: 114119, reduced binary size: 65536
+2023-04-29 19:13:03 INFO     Ratio: 0.574278
+2023-04-29 19:13:04 INFO     Source code size difference: 20495, binary size difference: 0
+2023-04-29 19:13:04 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:04 INFO     Reduced source code size: 106151, reduced binary size: 65536
+2023-04-29 19:13:04 INFO     Ratio: 0.617385
+2023-04-29 19:13:05 INFO     Source code size difference: 12847, binary size difference: 0
+2023-04-29 19:13:05 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:05 INFO     Reduced source code size: 113799, reduced binary size: 65536
+2023-04-29 19:13:05 INFO     Ratio: 0.575893
+2023-04-29 19:13:07 INFO     Source code size difference: 12382, binary size difference: 0
+2023-04-29 19:13:07 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:07 INFO     Reduced source code size: 114264, reduced binary size: 65536
+2023-04-29 19:13:07 INFO     Ratio: 0.573549
+2023-04-29 19:13:08 INFO     Source code size difference: 20620, binary size difference: 0
+2023-04-29 19:13:08 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:08 INFO     Reduced source code size: 106026, reduced binary size: 65536
+2023-04-29 19:13:08 INFO     Ratio: 0.618113
+2023-04-29 19:13:09 INFO     Source code size difference: 12480, binary size difference: 0
+2023-04-29 19:13:09 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:09 INFO     Reduced source code size: 114166, reduced binary size: 65536
+2023-04-29 19:13:09 INFO     Ratio: 0.574041
+2023-04-29 19:13:10 INFO     Source code size difference: 12344, binary size difference: 0
+2023-04-29 19:13:10 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:10 INFO     Reduced source code size: 114302, reduced binary size: 65536
+2023-04-29 19:13:10 INFO     Ratio: 0.573358
+2023-04-29 19:13:11 INFO     Source code size difference: 20217, binary size difference: 0
+2023-04-29 19:13:11 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:11 INFO     Reduced source code size: 106429, reduced binary size: 65536
+2023-04-29 19:13:11 INFO     Ratio: 0.615772
+2023-04-29 19:13:12 INFO     Source code size difference: 20666, binary size difference: 0
+2023-04-29 19:13:12 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:12 INFO     Reduced source code size: 105980, reduced binary size: 65536
+2023-04-29 19:13:12 INFO     Ratio: 0.618381
+2023-04-29 19:13:13 INFO     Source code size difference: 12251, binary size difference: 0
+2023-04-29 19:13:13 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:13 INFO     Reduced source code size: 114395, reduced binary size: 65536
+2023-04-29 19:13:13 INFO     Ratio: 0.572892
+2023-04-29 19:13:14 INFO     Source code size difference: 13424, binary size difference: 0
+2023-04-29 19:13:14 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:14 INFO     Reduced source code size: 113222, reduced binary size: 65536
+2023-04-29 19:13:14 INFO     Ratio: 0.578827
+2023-04-29 19:13:16 INFO     Source code size difference: 13001, binary size difference: 0
+2023-04-29 19:13:16 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:16 INFO     Reduced source code size: 113645, reduced binary size: 65536
+2023-04-29 19:13:16 INFO     Ratio: 0.576673
+2023-04-29 19:13:17 INFO     Source code size difference: 12342, binary size difference: 0
+2023-04-29 19:13:17 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:17 INFO     Reduced source code size: 114304, reduced binary size: 65536
+2023-04-29 19:13:17 INFO     Ratio: 0.573348
+2023-04-29 19:13:18 INFO     Source code size difference: 20775, binary size difference: 0
+2023-04-29 19:13:18 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:18 INFO     Reduced source code size: 105871, reduced binary size: 65536
+2023-04-29 19:13:18 INFO     Ratio: 0.619017
+2023-04-29 19:13:19 INFO     Source code size difference: 11876, binary size difference: 0
+2023-04-29 19:13:19 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:19 INFO     Reduced source code size: 114770, reduced binary size: 65536
+2023-04-29 19:13:19 INFO     Ratio: 0.571020
+2023-04-29 19:13:20 INFO     Source code size difference: 12298, binary size difference: 0
+2023-04-29 19:13:20 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:20 INFO     Reduced source code size: 114348, reduced binary size: 65536
+2023-04-29 19:13:20 INFO     Ratio: 0.573128
+2023-04-29 19:13:21 INFO     Source code size difference: 11648, binary size difference: 0
+2023-04-29 19:13:21 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:21 INFO     Reduced source code size: 114998, reduced binary size: 65536
+2023-04-29 19:13:21 INFO     Ratio: 0.569888
+2023-04-29 19:13:23 INFO     Source code size difference: 16777, binary size difference: 0
+2023-04-29 19:13:23 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:23 INFO     Reduced source code size: 109869, reduced binary size: 65536
+2023-04-29 19:13:23 INFO     Ratio: 0.596492
+2023-04-29 19:13:24 INFO     Source code size difference: 12204, binary size difference: 0
+2023-04-29 19:13:24 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:24 INFO     Reduced source code size: 114442, reduced binary size: 65536
+2023-04-29 19:13:24 INFO     Ratio: 0.572657
+2023-04-29 19:13:25 INFO     Source code size difference: 12564, binary size difference: 0
+2023-04-29 19:13:25 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:25 INFO     Reduced source code size: 114082, reduced binary size: 65536
+2023-04-29 19:13:25 INFO     Ratio: 0.574464
+2023-04-29 19:13:26 INFO     Source code size difference: 12895, binary size difference: 0
+2023-04-29 19:13:26 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:26 INFO     Reduced source code size: 113751, reduced binary size: 65536
+2023-04-29 19:13:26 INFO     Ratio: 0.576136
+2023-04-29 19:13:27 INFO     Source code size difference: 12428, binary size difference: 0
+2023-04-29 19:13:27 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:27 INFO     Reduced source code size: 114218, reduced binary size: 65536
+2023-04-29 19:13:27 INFO     Ratio: 0.573780
+2023-04-29 19:13:28 INFO     Source code size difference: 20218, binary size difference: 0
+2023-04-29 19:13:28 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:28 INFO     Reduced source code size: 106428, reduced binary size: 65536
+2023-04-29 19:13:28 INFO     Ratio: 0.615778
+2023-04-29 19:13:29 INFO     Source code size difference: 16559, binary size difference: 0
+2023-04-29 19:13:29 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:29 INFO     Reduced source code size: 110087, reduced binary size: 65536
+2023-04-29 19:13:29 INFO     Ratio: 0.595311
+2023-04-29 19:13:30 INFO     Source code size difference: 0, binary size difference: 0
+2023-04-29 19:13:30 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:30 INFO     Reduced source code size: 126646, reduced binary size: 65536
+2023-04-29 19:13:30 INFO     Ratio: 0.517474
+2023-04-29 19:13:32 INFO     Source code size difference: 20261, binary size difference: 0
+2023-04-29 19:13:32 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:32 INFO     Reduced source code size: 106385, reduced binary size: 65536
+2023-04-29 19:13:32 INFO     Ratio: 0.616027
+2023-04-29 19:13:33 INFO     Source code size difference: 12127, binary size difference: 0
+2023-04-29 19:13:33 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:33 INFO     Reduced source code size: 114519, reduced binary size: 65536
+2023-04-29 19:13:33 INFO     Ratio: 0.572272
+2023-04-29 19:13:34 INFO     Source code size difference: 20329, binary size difference: 0
+2023-04-29 19:13:34 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:34 INFO     Reduced source code size: 106317, reduced binary size: 65536
+2023-04-29 19:13:34 INFO     Ratio: 0.616421
+2023-04-29 19:13:35 INFO     Source code size difference: 13476, binary size difference: 0
+2023-04-29 19:13:35 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:35 INFO     Reduced source code size: 113170, reduced binary size: 65536
+2023-04-29 19:13:35 INFO     Ratio: 0.579093
+2023-04-29 19:13:36 INFO     Source code size difference: 20775, binary size difference: 0
+2023-04-29 19:13:36 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:36 INFO     Reduced source code size: 105871, reduced binary size: 65536
+2023-04-29 19:13:36 INFO     Ratio: 0.619017
+2023-04-29 19:13:37 INFO     Source code size difference: 18668, binary size difference: 0
+2023-04-29 19:13:37 INFO     Initial source code size: 126646, initial binary size: 65536
+2023-04-29 19:13:37 INFO     Reduced source code size: 107978, reduced binary size: 65536
+2023-04-29 19:13:37 INFO     Ratio: 0.606938
+2023-04-29 19:13:37 INFO     Best candidate this iteration: /Users/viktorgsteiger/Documents/ast-project/testing_output/iteration-0/interesting_jCAM3IDyANpZL5At.c
+2023-04-29 19:13:37 INFO     Best heuristic value this iteration: 0.619017
+2023-04-29 19:13:37 INFO     Best candidate info: (105871, 65536)
+2023-04-29 19:13:37 INFO     Improvement
+2023-04-29 19:13:37 INFO     Iteration 1
+2023-04-29 19:13:37 INFO     Running creduce
+2023-04-29 19:14:07 INFO     CReduce timed out
+2023-04-29 19:14:07 INFO     Compiling candidates
+2023-04-29 19:14:09 INFO     Source code size difference: 9124, binary size difference: 0
+2023-04-29 19:14:09 INFO     Initial source code size: 105871, initial binary size: 65536
+2023-04-29 19:14:09 INFO     Reduced source code size: 96747, reduced binary size: 65536
+2023-04-29 19:14:09 INFO     Ratio: 0.677396
+2023-04-29 19:14:13 INFO     Source code size difference: 0, binary size difference: 0
+2023-04-29 19:14:13 INFO     Initial source code size: 105871, initial binary size: 65536
+2023-04-29 19:14:13 INFO     Reduced source code size: 105871, reduced binary size: 65536
+2023-04-29 19:14:13 INFO     Ratio: 0.619017
+2023-04-29 19:14:14 INFO     Source code size difference: 9124, binary size difference: 0
+2023-04-29 19:14:14 INFO     Initial source code size: 105871, initial binary size: 65536
+2023-04-29 19:14:14 INFO     Reduced source code size: 96747, reduced binary size: 65536
+2023-04-29 19:14:14 INFO     Ratio: 0.677396
+2023-04-29 19:14:16 INFO     Source code size difference: 7452, binary size difference: 0
+2023-04-29 19:14:16 INFO     Initial source code size: 105871, initial binary size: 65536
+2023-04-29 19:14:16 INFO     Reduced source code size: 98419, reduced binary size: 65536
+2023-04-29 19:14:16 INFO     Ratio: 0.665888
+2023-04-29 19:14:20 INFO     Source code size difference: 8383, binary size difference: 0
+2023-04-29 19:14:20 INFO     Initial source code size: 105871, initial binary size: 65536
+2023-04-29 19:14:20 INFO     Reduced source code size: 97488, reduced binary size: 65536
+2023-04-29 19:14:20 INFO     Ratio: 0.672247
+2023-04-29 19:14:21 INFO     Best candidate this iteration: /Users/viktorgsteiger/Documents/ast-project/testing_output/iteration-1/init_1.c
+2023-04-29 19:14:21 INFO     Best heuristic value this iteration: 0.677396
+2023-04-29 19:14:21 INFO     Best candidate info: (96747, 65536)
+2023-04-29 19:14:21 INFO     Best heuristic value so far: 0.619017
+2023-04-29 19:14:21 INFO     Improvement
+2023-04-29 19:14:21 INFO     Iteration 2
+2023-04-29 19:14:21 INFO     Running creduce
+2023-04-29 19:14:51 INFO     CReduce timed out
+2023-04-29 19:14:51 INFO     Compiling candidates
+2023-04-29 19:14:53 INFO     Source code size difference: 74, binary size difference: 0
+2023-04-29 19:14:53 INFO     Initial source code size: 96747, initial binary size: 65536
+2023-04-29 19:14:53 INFO     Reduced source code size: 96673, reduced binary size: 65536
+2023-04-29 19:14:53 INFO     Ratio: 0.677914
+2023-04-29 19:14:54 INFO     Source code size difference: 474, binary size difference: 0
+2023-04-29 19:14:54 INFO     Initial source code size: 96747, initial binary size: 65536
+2023-04-29 19:14:54 INFO     Reduced source code size: 96273, reduced binary size: 65536
+2023-04-29 19:14:54 INFO     Ratio: 0.680731
+2023-04-29 19:14:55 INFO     Source code size difference: 383, binary size difference: 0
+2023-04-29 19:14:55 INFO     Initial source code size: 96747, initial binary size: 65536
+2023-04-29 19:14:55 INFO     Reduced source code size: 96364, reduced binary size: 65536
+2023-04-29 19:14:55 INFO     Ratio: 0.680088
+2023-04-29 19:14:56 INFO     Source code size difference: 180, binary size difference: 0
+2023-04-29 19:14:56 INFO     Initial source code size: 96747, initial binary size: 65536
+2023-04-29 19:14:56 INFO     Reduced source code size: 96567, reduced binary size: 65536
+2023-04-29 19:14:56 INFO     Ratio: 0.678658
+2023-04-29 19:14:58 INFO     Source code size difference: 551, binary size difference: 0
+2023-04-29 19:14:58 INFO     Initial source code size: 96747, initial binary size: 65536
+2023-04-29 19:14:58 INFO     Reduced source code size: 96196, reduced binary size: 65536
+2023-04-29 19:14:58 INFO     Ratio: 0.681276
+2023-04-29 19:14:59 INFO     Source code size difference: 21, binary size difference: 0
+2023-04-29 19:14:59 INFO     Initial source code size: 96747, initial binary size: 65536
+2023-04-29 19:14:59 INFO     Reduced source code size: 96726, reduced binary size: 65536
+2023-04-29 19:14:59 INFO     Ratio: 0.677543
+2023-04-29 19:15:00 INFO     Source code size difference: 226, binary size difference: 0
+2023-04-29 19:15:00 INFO     Initial source code size: 96747, initial binary size: 65536
+2023-04-29 19:15:00 INFO     Reduced source code size: 96521, reduced binary size: 65536
+2023-04-29 19:15:00 INFO     Ratio: 0.678982
+2023-04-29 19:15:00 INFO     Source code size difference: 0, binary size difference: 0
+2023-04-29 19:15:00 INFO     Initial source code size: 96747, initial binary size: 65536
+2023-04-29 19:15:00 INFO     Reduced source code size: 96747, reduced binary size: 65536
+2023-04-29 19:15:00 INFO     Ratio: 0.677396
+2023-04-29 19:15:03 INFO     Source code size difference: 429, binary size difference: 0
+2023-04-29 19:15:03 INFO     Initial source code size: 96747, initial binary size: 65536
+2023-04-29 19:15:03 INFO     Reduced source code size: 96318, reduced binary size: 65536
+2023-04-29 19:15:03 INFO     Ratio: 0.680413
+2023-04-29 19:15:06 INFO     Source code size difference: 244, binary size difference: 0
+2023-04-29 19:15:06 INFO     Initial source code size: 96747, initial binary size: 65536
+2023-04-29 19:15:06 INFO     Reduced source code size: 96503, reduced binary size: 65536
+2023-04-29 19:15:06 INFO     Ratio: 0.679108
+2023-04-29 19:15:08 INFO     Source code size difference: 507, binary size difference: 0
+2023-04-29 19:15:08 INFO     Initial source code size: 96747, initial binary size: 65536
+2023-04-29 19:15:08 INFO     Reduced source code size: 96240, reduced binary size: 65536
+2023-04-29 19:15:08 INFO     Ratio: 0.680964
+2023-04-29 19:15:09 INFO     Source code size difference: 378, binary size difference: 0
+2023-04-29 19:15:09 INFO     Initial source code size: 96747, initial binary size: 65536
+2023-04-29 19:15:09 INFO     Reduced source code size: 96369, reduced binary size: 65536
+2023-04-29 19:15:09 INFO     Ratio: 0.680053
+2023-04-29 19:15:10 INFO     Source code size difference: 593, binary size difference: 0
+2023-04-29 19:15:10 INFO     Initial source code size: 96747, initial binary size: 65536
+2023-04-29 19:15:10 INFO     Reduced source code size: 96154, reduced binary size: 65536
+2023-04-29 19:15:10 INFO     Ratio: 0.681573
+2023-04-29 19:15:11 INFO     Source code size difference: 290, binary size difference: 0
+2023-04-29 19:15:11 INFO     Initial source code size: 96747, initial binary size: 65536
+2023-04-29 19:15:11 INFO     Reduced source code size: 96457, reduced binary size: 65536
+2023-04-29 19:15:11 INFO     Ratio: 0.679432
+2023-04-29 19:15:12 INFO     Source code size difference: 332, binary size difference: 0
+2023-04-29 19:15:12 INFO     Initial source code size: 96747, initial binary size: 65536
+2023-04-29 19:15:12 INFO     Reduced source code size: 96415, reduced binary size: 65536
+2023-04-29 19:15:12 INFO     Ratio: 0.679728
+2023-04-29 19:15:12 INFO     Best candidate this iteration: /Users/viktorgsteiger/Documents/ast-project/testing_output/iteration-2/interesting_f4HKZlNBSYrDFrM9.c
+2023-04-29 19:15:12 INFO     Best heuristic value this iteration: 0.681573
+2023-04-29 19:15:12 INFO     Best candidate info: (96154, 65536)
+2023-04-29 19:15:12 INFO     Best heuristic value so far: 0.677396
+2023-04-29 19:15:12 INFO     Improvement
+2023-04-29 19:15:12 INFO     Iteration 3
+2023-04-29 19:15:12 INFO     Running creduce
+2023-04-29 19:15:42 INFO     CReduce timed out
+2023-04-29 19:15:42 INFO     Compiling candidates
+2023-04-29 19:15:44 INFO     Source code size difference: 0, binary size difference: 0
+2023-04-29 19:15:44 INFO     Initial source code size: 96154, initial binary size: 65536
+2023-04-29 19:15:44 INFO     Reduced source code size: 96154, reduced binary size: 65536
+2023-04-29 19:15:44 INFO     Ratio: 0.681573
+2023-04-29 19:15:45 INFO     Source code size difference: 457, binary size difference: 0
+2023-04-29 19:15:45 INFO     Initial source code size: 96154, initial binary size: 65536
+2023-04-29 19:15:45 INFO     Reduced source code size: 95697, reduced binary size: 65536
+2023-04-29 19:15:45 INFO     Ratio: 0.684828
+2023-04-29 19:15:47 INFO     Source code size difference: 694, binary size difference: 0
+2023-04-29 19:15:47 INFO     Initial source code size: 96154, initial binary size: 65536
+2023-04-29 19:15:47 INFO     Reduced source code size: 95460, reduced binary size: 65536
+2023-04-29 19:15:47 INFO     Ratio: 0.686528
+2023-04-29 19:15:48 INFO     Source code size difference: 694, binary size difference: 0
+2023-04-29 19:15:48 INFO     Initial source code size: 96154, initial binary size: 65536
+2023-04-29 19:15:48 INFO     Reduced source code size: 95460, reduced binary size: 65536
+2023-04-29 19:15:48 INFO     Ratio: 0.686528
+2023-04-29 19:15:48 INFO     Best candidate this iteration: /Users/viktorgsteiger/Documents/ast-project/testing_output/iteration-3/init_3.c
+2023-04-29 19:15:48 INFO     Best heuristic value this iteration: 0.686528
+2023-04-29 19:15:48 INFO     Best candidate info: (95460, 65536)
+2023-04-29 19:15:48 INFO     Best heuristic value so far: 0.681573
+2023-04-29 19:15:48 INFO     Improvement
+2023-04-29 19:15:48 INFO     Iteration 4
+2023-04-29 19:15:48 INFO     Running creduce
+2023-04-29 19:16:47 INFO     CReduce timed out
+2023-04-29 19:16:47 INFO     Compiling candidates
+2023-04-29 19:16:50 INFO     Source code size difference: 0, binary size difference: 0
+2023-04-29 19:16:50 INFO     Initial source code size: 95460, initial binary size: 65536
+2023-04-29 19:16:50 INFO     Reduced source code size: 95460, reduced binary size: 65536
+2023-04-29 19:16:50 INFO     Ratio: 0.686528
+2023-04-29 19:16:51 INFO     Best candidate this iteration: /Users/viktorgsteiger/Documents/ast-project/testing_output/iteration-4/interesting_gqTT7cQM8p2O8FzA.c
+2023-04-29 19:16:51 INFO     Best heuristic value this iteration: 0.686528
+2023-04-29 19:16:51 INFO     Best candidate info: (95460, 65536)
+2023-04-29 19:16:51 INFO     Best heuristic value so far: 0.686528
+2023-04-29 19:16:51 INFO     Improvement
+2023-04-29 19:16:51 INFO     Iteration 5
+2023-04-29 19:16:51 INFO     Running creduce
+2023-04-29 19:33:00 INFO     CReduce timed out
+2023-04-29 19:33:00 INFO     Compiling candidates
+2023-04-29 19:33:01 INFO     Source code size difference: 0, binary size difference: 0
+2023-04-29 19:33:01 INFO     Initial source code size: 95460, initial binary size: 65536
+2023-04-29 19:33:01 INFO     Reduced source code size: 95460, reduced binary size: 65536
+2023-04-29 19:33:01 INFO     Ratio: 0.686528
+2023-04-29 19:33:04 INFO     Best candidate this iteration: /Users/viktorgsteiger/Documents/ast-project/testing_output/iteration-5/interesting_sh69oWht3HRlZVq0.c
+2023-04-29 19:33:04 INFO     Best heuristic value this iteration: 0.686528
+2023-04-29 19:33:04 INFO     Best candidate info: (95460, 65536)
+2023-04-29 19:33:04 INFO     Best heuristic value so far: 0.686528
+2023-04-29 19:33:04 INFO     Improvement
+2023-04-29 19:33:04 INFO     Finished after 1251 seconds
+2023-04-29 19:33:04 INFO     Done

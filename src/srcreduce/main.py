@@ -13,6 +13,14 @@ from diopter.compiler import SourceProgram
 from diopter.sanitizer import Sanitizer
 
 
+logging.basicConfig(
+    format="%(asctime)s %(levelname)-8s %(message)s",
+    level=logging.INFO,
+    datefmt="%Y-%m-%d %H:%M:%S",
+    filename="srcreduce.log",
+    filemode='a'
+)
+
 def generate_source_code(args):
     if args.example is not None:
         logging.info("Generating source code based on example file: %s", args.example)
@@ -58,6 +66,7 @@ def run(args, initial_output):
             continue
 
         candidates_scores: dict[str:float] = dict()
+        candidates_info: dict[str: tuple[str, str]] = dict()
 
         logging.info("Compiling candidates")
 
@@ -86,6 +95,7 @@ def run(args, initial_output):
                 args,
                 last_source_code_path,
                 candidate,
+                candidates_info
             )
 
             candidates_scores[candidate] = heuristic_value
@@ -93,6 +103,7 @@ def run(args, initial_output):
         best_candidate: str = max(candidates_scores, key=candidates_scores.get)
         logging.info("Best candidate this iteration: %s", best_candidate)
         logging.info("Best heuristic value this iteration: %f", candidates_scores[best_candidate])
+        logging.info("Best candidate info: %s", candidates_info[best_candidate])
         # TODO: Local minimum detection -> start over with some previous version
         # TODO: If this is still not improving, start over with a random new code
         if last_heuristic_value is not None:
@@ -174,6 +185,7 @@ def calculate_heuristic_value(
     args,
     original_source_code_path,
     reduced_source_code_path,
+    candidates_info,
 ) -> float:
     # Size of the .text-section from the binary sample (larger is better).
     # (2) Size of the corresponding code sample (must not be larger than the original, smaller is better).
@@ -195,6 +207,10 @@ def calculate_heuristic_value(
 
     if bin_size_difference > 0:
         return 0
+    
+    if reduced_source_code_size <= 18:
+        # Special case for file that is always 18 bytes because only contains a single function declaration
+        return 0
 
     logging.info(
         "Source code size difference: %d, binary size difference: %d",
@@ -212,6 +228,8 @@ def calculate_heuristic_value(
         reduced_bin_size,
     )
     logging.info("Ratio: %f", reduced_bin_size / reduced_source_code_size)
+
+    candidates_info[reduced_source_code_path] = (reduced_source_code_size, reduced_bin_size)
 
     # TODO: Large difference to previously generated mutants where we utilize similarity measures
 
@@ -430,5 +448,5 @@ def main():
 if __name__ == "__main__":
     main()
 
-# cmd: python src/srcreduce/main.py --csmith csmith --creduce creduce --compiler gcc --random --output /Users/viktorgsteiger/Documents/ast-project/testing_output --csmith-include /opt/homebrew/Cellar/csmith/2.3.0/include/csmith-2.3.0
+# cmd: python src/srcreduce/main.py --csmith csmith --creduce creduce --compiler gcc --random --output /Users/viktorgsteiger/Documents/ast-project/testing_output --csmith-include /opt/homebrew/Cellar/csmith/2.3.0/include/csmith-2.3.0 --timeout-creduce 10 --timeout-creduce-iteration 150 --timeout 900
 # cmd: python src/srcreduce/main.py --csmith /home/nikch/csmith-install/bin/csmith --creduce creduce --compiler gcc --random --output /home/nikch/Documents/Repositories/ast-project/testing_output --csmith-include /home/nikch/csmith-install/include
