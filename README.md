@@ -20,6 +20,14 @@ The project is structured as follows:
 
 ## Usage
 
+### Dependencies
+
+You need to add the path to csmith header files to the `CPATH` environment variable for the sanitizing checks to work correctly. On ubuntu, you can add the following at the end of your `.bashrc` file and restart your machine:
+```
+# Add csmith include to cpath
+export CPATH="[path to include dir of csmith installation]"
+```
+
 ### Source code reduction
 
 The source code reduction is implemented in the `srcreduce` module. It can be used as follows:
@@ -37,13 +45,14 @@ The following options are available:
 - `-o OUTPUT`, `--output OUTPUT`: Output file for the generated source code
 - `-s`, `--show`: Show the generated source code
 - `-t TIMEOUT`, `--timeout TIMEOUT`: Timeout for the framework in seconds
+- `--timeout-credce TIMEOUT_CREDCE`: Timeout for credce in seconds
 - `-m MAX_ITERATIONS`, `--max-iterations MAX_ITERATIONS`: Maximum number of iterations
-- `-i INITIAL_SIZE`, `--initial-size INITIAL_SIZE`: Initial size of the source code
 - `-r`, `--random`: Use random source code generation
 - `-e EXAMPLE`, `--example EXAMPLE`: Use example source code generation based on the given example file
 - `--optional-csmith-args OPTIONAL_CSMITH_ARGS`: Optional arguments for csmith
 - `--csmith`: Path to csmith binary
-- `--cvise`: Path to cvise binary
-- `--cvsise-canidates`: Number of cvise candidates, default: 20
+- `--csmith-includes`: Path to csmith includes
+- `--credce`: Path to credce binary
+- `--canidates`: Number of candidates, default: 20
 - `--compiler`: Path to compiler binary
 - `--compiler-args`: Optional arguments for compiler
