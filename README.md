@@ -34,25 +34,29 @@ The source code reduction is implemented in the `srcreduce` module. It can be us
 
 ```bash
 $ python3 -m srcreduce -h
-usage: srcreduce [-h] [-v] [-o OUTPUT] [-s] [-t TIMEOUT] [-m MAX_ITERATIONS]
-                 [-i INITIAL_SIZE] [-r] [-e EXAMPLE]
+usage: main.py [-h] [-v] [-o OUTPUT] [-s] [-t TIMEOUT] [--timeout-creduce TIMEOUT_CREDUCE]
+               [--timeout-creduce-iteration TIMEOUT_CREDUCE_ITERATION] [-m MAX_ITERATIONS] [-r] [-e EXAMPLE]
+               [--optional-csmith-args OPTIONAL_CSMITH_ARGS] --csmith CSMITH --csmith-include CSMITH_INCLUDE --creduce CREDUCE
+               [--candidates CANDIDATES] --compiler COMPILER [--compiler-args COMPILER_ARGS]
 ```
 
 The following options are available:
-
-- `-h`, `--help`: Show help message and exit
-- `-v`, `--verbose`: Show verbose output
-- `-o OUTPUT`, `--output OUTPUT`: Output file for the generated source code
-- `-s`, `--show`: Show the generated source code
-- `-t TIMEOUT`, `--timeout TIMEOUT`: Timeout for the framework in seconds
-- `--timeout-credce TIMEOUT_CREDCE`: Timeout for credce in seconds
-- `-m MAX_ITERATIONS`, `--max-iterations MAX_ITERATIONS`: Maximum number of iterations
-- `-r`, `--random`: Use random source code generation
-- `-e EXAMPLE`, `--example EXAMPLE`: Use example source code generation based on the given example file
-- `--optional-csmith-args OPTIONAL_CSMITH_ARGS`: Optional arguments for csmith
-- `--csmith`: Path to csmith binary
-- `--csmith-includes`: Path to csmith includes
-- `--credce`: Path to credce binary
-- `--canidates`: Number of candidates, default: 20
-- `--compiler`: Path to compiler binary
-- `--compiler-args`: Optional arguments for compiler
+```bash
+  -h, --help                        show this help message and exit
+  -v, --verbose                     show verbose output
+  -o OUTPUT, --output OUTPUT        output directory
+  -s, --show                        show the generated source code
+  -t TIMEOUT, --timeout TIMEOUT     timeout for the framework in seconds
+  --timeout-creduce TIMEOUT_CREDUCE timeout for creduce passes in seconds
+  --timeout-creduce-iteration TIMEOUT_CREDUCE_ITERATION timeout for creduce per iteration in seconds
+  -m MAX_ITERATIONS, --max-iterations MAX_ITERATIONS maximum number of iterations
+  -r, --random                      use random source code generation
+  -e EXAMPLE, --example EXAMPLE     use example source code generation based on the given example file
+  --optional-csmith-args OPTIONAL_CSMITH_ARGS optional csmith arguments
+  --csmith CSMITH                   path to csmith
+  --csmith-include CSMITH_INCLUDE   path to csmith include
+  --creduce CREDUCE                 path to creduce
+  --candidates CANDIDATES           number of cvsise canidates
+  --compiler COMPILER               path to compiler
+  --compiler-args COMPILER_ARGS     compiler arguments
+```
