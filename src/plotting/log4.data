@@ -1,0 +1,724 @@
+ikch@nikch-ThinkPad-E485:~/Documents/Repositories/ast-project$ python src/srcreduce/main.py --csmith /home/nikch/csmith-install/bin/csmith --creduce creduce --compiler gcc --random --output /home/nikch/Documents/Repositories/ast-project/testing_output --csmith-include /home/nikch/csmith-install/include
+INFO: Generating random source code
+INFO: Generating random source code
+INFO: Running framework
+INFO: Reducing
+INFO: Iteration 0
+INFO: Running creduce
+===< 78481 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+(80.6 %, 593 bytes)
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+(81.4 %, 570 bytes)
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(81.3 %, 574 bytes)
+(82.3 %, 542 bytes)
+(83.1 %, 517 bytes)
+===< pass_lines :: 1 >===
+(82.6 %, 533 bytes)
+(83.1 %, 518 bytes)
+===< pass_lines :: 2 >===
+(82.6 %, 533 bytes)
+===< pass_lines :: 3 >===
+(82.1 %, 548 bytes)
+===< pass_lines :: 4 >===
+(81.6 %, 563 bytes)
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## interesting_Di7DMf3G4ofMR1X0.c
+INFO: Source code size difference: 2530, binary size difference: 0
+INFO: Initial source code size: 3063, initial binary size: 11444
+INFO: Reduced source code size: 533, reduced binary size: 11444
+INFO: Ratio: 21.470919
+################## interesting_7cfCcz7lsLFrcPt7.c
+INFO: Source code size difference: 2546, binary size difference: 0
+INFO: Initial source code size: 3063, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+################## interesting_U5K0HHV7Az1dxZv6.c
+INFO: Source code size difference: 2530, binary size difference: 0
+INFO: Initial source code size: 3063, initial binary size: 11444
+INFO: Reduced source code size: 533, reduced binary size: 11444
+INFO: Ratio: 21.470919
+################## interesting_aViw2CvKx7gqavWz.c
+INFO: Source code size difference: 2521, binary size difference: 0
+INFO: Initial source code size: 3063, initial binary size: 11444
+INFO: Reduced source code size: 542, reduced binary size: 11444
+INFO: Ratio: 21.114391
+################## interesting_Ku0t3OJ77nCaRZNw.c
+INFO: Source code size difference: 2489, binary size difference: 0
+INFO: Initial source code size: 3063, initial binary size: 11444
+INFO: Reduced source code size: 574, reduced binary size: 11444
+INFO: Ratio: 19.937282
+################## interesting_io0Lv8TmlFoyhWa8.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 3063, initial binary size: 11444
+INFO: Reduced source code size: 3063, reduced binary size: 11444
+INFO: Ratio: 3.736206
+################## interesting_n20e5u4I2Tq8vlU9.c
+INFO: Source code size difference: 2500, binary size difference: 0
+INFO: Initial source code size: 3063, initial binary size: 11444
+INFO: Reduced source code size: 563, reduced binary size: 11444
+INFO: Ratio: 20.326821
+################## interesting_XnZqcTpCYTtEMebD.c
+INFO: Source code size difference: 2493, binary size difference: 0
+INFO: Initial source code size: 3063, initial binary size: 11444
+INFO: Reduced source code size: 570, reduced binary size: 11444
+INFO: Ratio: 20.077193
+################## interesting_rSyKePduTQ0cGtEz.c
+INFO: Source code size difference: 2470, binary size difference: 0
+INFO: Initial source code size: 3063, initial binary size: 11444
+INFO: Reduced source code size: 593, reduced binary size: 11444
+INFO: Ratio: 19.298482
+################## interesting_7v1rubcESILiW5ku.c
+INFO: Source code size difference: 2515, binary size difference: 0
+INFO: Initial source code size: 3063, initial binary size: 11444
+INFO: Reduced source code size: 548, reduced binary size: 11444
+INFO: Ratio: 20.883212
+################## interesting_KDlz8V6enhc3Ef2i.c
+INFO: Source code size difference: 2545, binary size difference: 0
+INFO: Initial source code size: 3063, initial binary size: 11444
+INFO: Reduced source code size: 518, reduced binary size: 11444
+INFO: Ratio: 22.092664
+################## init_0.c
+INFO: Source code size difference: 2500, binary size difference: 0
+INFO: Initial source code size: 3063, initial binary size: 11444
+INFO: Reduced source code size: 563, reduced binary size: 11444
+INFO: Ratio: 20.326821
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-0/interesting_7cfCcz7lsLFrcPt7.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Improvement
+INFO: Iteration 1
+INFO: Running creduce
+===< 81553 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(-0.4 %, 519 bytes)
+===< pass_lines :: 1 >===
+(-3.5 %, 535 bytes)
+(-0.6 %, 520 bytes)
+===< pass_lines :: 2 >===
+(-3.5 %, 535 bytes)
+===< pass_lines :: 3 >===
+(-6.4 %, 550 bytes)
+===< pass_lines :: 4 >===
+(-9.3 %, 565 bytes)
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## interesting_oGXLsuxdeqB2GhWy.c
+################## interesting_TjWB5mTk7Y0sOxwR.c
+################## interesting_NEewWwpucTs2vCMi.c
+################## interesting_PMN578dg7dQ7EXsM.c
+################## init_1.c
+################## interesting_xXZnAcKJJ6IOxUyX.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 517, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+################## interesting_cXIQJjLeo4b2MRT7.c
+################## interesting_RFIDiojrgBRiWtlD.c
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-1/interesting_xXZnAcKJJ6IOxUyX.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Best heuristic value so far: 22.135397
+INFO: Improvement
+INFO: Iteration 2
+INFO: Running creduce
+===< 84340 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(-0.4 %, 519 bytes)
+===< pass_lines :: 1 >===
+(-3.5 %, 535 bytes)
+(-0.6 %, 520 bytes)
+===< pass_lines :: 2 >===
+(-3.5 %, 535 bytes)
+===< pass_lines :: 3 >===
+(-6.4 %, 550 bytes)
+===< pass_lines :: 4 >===
+(-9.3 %, 565 bytes)
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## interesting_YYgiCRgCb3FjOYn7.c
+################## interesting_gpG5VvI7T1TxpHLH.c
+################## interesting_9Zxp7bWbNf6ycrwP.c
+################## interesting_P6JTP1rxnjs8kSgI.c
+################## interesting_9jr3r87EdRbmy7kx.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 517, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+################## interesting_pN81QNrn7WC9vkF4.c
+################## interesting_nOQVq7sqdWfaDWrR.c
+################## init_2.c
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-2/interesting_9jr3r87EdRbmy7kx.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Best heuristic value so far: 22.135397
+INFO: Improvement
+INFO: Iteration 3
+INFO: Running creduce
+===< 87230 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(-0.4 %, 519 bytes)
+===< pass_lines :: 1 >===
+(-3.5 %, 535 bytes)
+(-0.6 %, 520 bytes)
+===< pass_lines :: 2 >===
+(-3.5 %, 535 bytes)
+===< pass_lines :: 3 >===
+(-6.4 %, 550 bytes)
+===< pass_lines :: 4 >===
+(-9.3 %, 565 bytes)
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## interesting_ogHD6KAwEXJdpJY6.c
+################## interesting_7DtaulVk8xePFiRW.c
+################## interesting_kDcGKv8SsCpmOsxI.c
+################## init_3.c
+################## interesting_yqazrg56xWpSIcvo.c
+################## interesting_GIFOfXioT7HKKHuq.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 517, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+################## interesting_fqbdw5Ve6Fio4fzK.c
+################## interesting_JoZ2xRZu8cPlk56Q.c
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-3/interesting_GIFOfXioT7HKKHuq.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Best heuristic value so far: 22.135397
+INFO: Improvement
+INFO: Iteration 4
+INFO: Running creduce
+===< 90304 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(-0.4 %, 519 bytes)
+===< pass_lines :: 1 >===
+(-3.5 %, 535 bytes)
+(-0.6 %, 520 bytes)
+===< pass_lines :: 2 >===
+(-3.5 %, 535 bytes)
+===< pass_lines :: 3 >===
+(-6.4 %, 550 bytes)
+===< pass_lines :: 4 >===
+(-9.3 %, 565 bytes)
+===< pass_lines :: 6 >===
+(-12.2 %, 580 bytes)
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## interesting_kr0NKvI3jScwkGGd.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 517, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+################## interesting_UUDwCw22tr6E97f6.c
+################## init_4.c
+################## interesting_U5Rr82f3KQ5U4KYW.c
+################## interesting_JEdUq5Mo3lCmESWS.c
+################## interesting_6CQuGjy16RdoMEQb.c
+################## interesting_u85ssbyWfaxLEr6j.c
+################## interesting_O4YP5O99BsdZPsmF.c
+################## interesting_eArzVukaJPdwp79D.c
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-4/interesting_kr0NKvI3jScwkGGd.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Best heuristic value so far: 22.135397
+INFO: Improvement
+INFO: Iteration 5
+INFO: Running creduce
+===< 93531 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(-0.4 %, 519 bytes)
+===< pass_lines :: 1 >===
+(-3.5 %, 535 bytes)
+(-0.6 %, 520 bytes)
+===< pass_lines :: 2 >===
+(-3.5 %, 535 bytes)
+===< pass_lines :: 3 >===
+(-6.4 %, 550 bytes)
+===< pass_lines :: 4 >===
+(-9.3 %, 565 bytes)
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## interesting_oqWWAjoORz2w3aMk.c
+################## interesting_VwPpF4MHrF8ag92c.c
+################## interesting_cGM7FctD3Lg86oyn.c
+################## interesting_oOexWqCNQ9DOtw2f.c
+################## interesting_idXsnfkPSDHOrizv.c
+################## init_5.c
+################## interesting_G4YL6Iejss4qGptW.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 517, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+################## interesting_QR7DDEBtWtuquAG1.c
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-5/interesting_G4YL6Iejss4qGptW.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Best heuristic value so far: 22.135397
+INFO: Improvement
+INFO: Iteration 6
+INFO: Running creduce
+===< 96569 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(-0.4 %, 519 bytes)
+===< pass_lines :: 1 >===
+(-3.5 %, 535 bytes)
+(-0.6 %, 520 bytes)
+===< pass_lines :: 2 >===
+(-3.5 %, 535 bytes)
+===< pass_lines :: 3 >===
+(-6.4 %, 550 bytes)
+===< pass_lines :: 4 >===
+(-9.3 %, 565 bytes)
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## interesting_Xnchg9cswiFNRg0T.c
+################## interesting_7MfHbS4ahC8YMxCD.c
+################## interesting_7gyG6lNNWg1mvZT7.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 517, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+################## interesting_T4BtySWdJYOmuvEJ.c
+################## init_6.c
+################## interesting_cMjIM1XRLCEZqfpt.c
+################## interesting_JXPUn43Q11hUkODF.c
+################## interesting_IOTw6qbAtadP4Bjo.c
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-6/interesting_7gyG6lNNWg1mvZT7.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Best heuristic value so far: 22.135397
+INFO: Improvement
+INFO: Iteration 7
+INFO: Running creduce
+===< 99710 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(-0.4 %, 519 bytes)
+===< pass_lines :: 1 >===
+(-3.5 %, 535 bytes)
+(-0.6 %, 520 bytes)
+===< pass_lines :: 2 >===
+(-3.5 %, 535 bytes)
+===< pass_lines :: 3 >===
+(-6.4 %, 550 bytes)
+===< pass_lines :: 4 >===
+(-9.3 %, 565 bytes)
+===< pass_lines :: 6 >===
+(-12.2 %, 580 bytes)
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## interesting_SC9CwN9iYKqaZO34.c
+################## init_7.c
+################## interesting_zCe1EEGVQim6sncv.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 517, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+################## interesting_1t7giqwhwCNL8Vpy.c
+################## interesting_74Z4mIOGdRNqd8WL.c
+################## interesting_T5OY6GpW2aIDigTR.c
+################## interesting_7CXwntnR4o828Qju.c
+################## interesting_EFkouxd4zOE5OPNw.c
+################## interesting_TVF7sCWbxKazcgCY.c
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-7/interesting_zCe1EEGVQim6sncv.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Best heuristic value so far: 22.135397
+INFO: Improvement
+INFO: Iteration 8
+INFO: Running creduce
+===< 102920 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(-0.4 %, 519 bytes)
+===< pass_lines :: 1 >===
+(-3.5 %, 535 bytes)
+(-0.6 %, 520 bytes)
+===< pass_lines :: 2 >===
+(-3.5 %, 535 bytes)
+===< pass_lines :: 3 >===
+(-6.4 %, 550 bytes)
+===< pass_lines :: 4 >===
+(-9.3 %, 565 bytes)
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## interesting_BhwSHUXQzWMI1gRr.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 517, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+################## interesting_Jgxg7Rkw67tTyeYR.c
+################## interesting_j2Es7sB4iC8PhCeW.c
+################## init_8.c
+################## interesting_NLCZAHE05MPtd9UU.c
+################## interesting_uM4b7u7bDLZIdb70.c
+################## interesting_LA3pVaWJIJ7vNvds.c
+################## interesting_4eBSKpm4K62roP9V.c
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-8/interesting_BhwSHUXQzWMI1gRr.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Best heuristic value so far: 22.135397
+INFO: Improvement
+INFO: Iteration 9
+INFO: Running creduce
+===< 105900 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(-0.4 %, 519 bytes)
+===< pass_lines :: 1 >===
+(-3.5 %, 535 bytes)
+(-0.6 %, 520 bytes)
+===< pass_lines :: 2 >===
+(-3.5 %, 535 bytes)
+===< pass_lines :: 3 >===
+(-6.4 %, 550 bytes)
+===< pass_lines :: 4 >===
+(-9.3 %, 565 bytes)
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## interesting_u7lVknKbxgn1SKjG.c
+################## interesting_kspy39QAOMHM3nIV.c
+################## interesting_vgeAAPxuQF9m15x7.c
+################## interesting_alqqX3qYCjdQeFjy.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 517, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+################## interesting_koE35izhrVYPNWod.c
+################## init_9.c
+################## interesting_OsHfhmTzRq6K9DzB.c
+################## interesting_rLFl3kgbJVLHJo9o.c
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-9/interesting_alqqX3qYCjdQeFjy.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Best heuristic value so far: 22.135397
+INFO: Improvement
+INFO: Iteration 10
+INFO: Running creduce
+===< 108887 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(-0.4 %, 519 bytes)
+===< pass_lines :: 1 >===
+(-3.5 %, 535 bytes)
+(-0.6 %, 520 bytes)
+===< pass_lines :: 2 >===
+(-3.5 %, 535 bytes)
+===< pass_lines :: 3 >===
+(-6.4 %, 550 bytes)
+===< pass_lines :: 4 >===
+(-9.3 %, 565 bytes)
+===< pass_lines :: 6 >===
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## interesting_uvvDaw3Anmrohc1G.c
+################## interesting_VsMS55jgdhVkCue1.c
+################## interesting_RD2rxqZzm7s8ooEY.c
+################## interesting_qVeEYjYI8KlCNezB.c
+################## interesting_AKE7hCYmC7jk1aNP.c
+################## init_10.c
+################## interesting_XCLLWcXNbbS7BcrX.c
+################## interesting_JpXWutimkIw2oMnB.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 517, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-10/interesting_JpXWutimkIw2oMnB.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Best heuristic value so far: 22.135397
+INFO: Improvement
+INFO: Iteration 11
+INFO: Running creduce
+===< 112003 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(-0.4 %, 519 bytes)
+===< pass_lines :: 1 >===
+(-3.5 %, 535 bytes)
+(-0.6 %, 520 bytes)
+===< pass_lines :: 2 >===
+(-3.5 %, 535 bytes)
+===< pass_lines :: 3 >===
+(-6.4 %, 550 bytes)
+===< pass_lines :: 4 >===
+(-9.3 %, 565 bytes)
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## interesting_q3oFBkLGaNiCDOJz.c
+################## interesting_0Bz2Ibd3kkNTL8h2.c
+################## interesting_rhi9YRVxQLctg5Lb.c
+################## interesting_QucgmEpQithzxELz.c
+################## interesting_GOnY3Cgyn9r85SJQ.c
+################## init_11.c
+################## interesting_qAPEPUUhWhvnt21E.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 517, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+################## interesting_HlqIi5gkWQkCRTOM.c
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-11/interesting_qAPEPUUhWhvnt21E.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Best heuristic value so far: 22.135397
+INFO: Improvement
+INFO: Iteration 12
+INFO: Running creduce
+===< 114981 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(-0.4 %, 519 bytes)
+===< pass_lines :: 1 >===
+(-3.5 %, 535 bytes)
+(-0.6 %, 520 bytes)
+===< pass_lines :: 2 >===
+(-3.5 %, 535 bytes)
+===< pass_lines :: 3 >===
+(-6.4 %, 550 bytes)
+===< pass_lines :: 4 >===
+(-9.3 %, 565 bytes)
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## interesting_ZbXY7vvHFutXQ9WL.c
+################## interesting_BiNckz0RaCsUfFEa.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 517, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+################## interesting_ASG61nvZw3KMMDxx.c
+################## interesting_SAcd4ye9iZKkGjFl.c
+################## interesting_LQYPGlYFIv5x9ByT.c
+################## init_12.c
+################## interesting_7YURCDULzwlNcinj.c
+################## interesting_lKHpdq5oqHEy0xLg.c
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-12/interesting_BiNckz0RaCsUfFEa.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Best heuristic value so far: 22.135397
+INFO: Improvement
+INFO: Iteration 13
+INFO: Running creduce
+===< 117901 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(-0.4 %, 519 bytes)
+===< pass_lines :: 1 >===
+(-3.5 %, 535 bytes)
+(-0.6 %, 520 bytes)
+===< pass_lines :: 2 >===
+(-3.5 %, 535 bytes)
+===< pass_lines :: 3 >===
+(-6.4 %, 550 bytes)
+===< pass_lines :: 4 >===
+(-9.3 %, 565 bytes)
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## interesting_gfw0kf2tiCrQlbp4.c
+################## interesting_X1Sl7sOsQQ4OeQkB.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 517, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+################## interesting_NnmGCYegCzjCIpAT.c
+################## interesting_bXhHWIkV6Umn1UgO.c
+################## init_13.c
+################## interesting_42gDJ77Fd45kDVJp.c
+################## interesting_Pbu8buMtIC3A50Ln.c
+################## interesting_WDVeBLnVumV7Li8a.c
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-13/interesting_X1Sl7sOsQQ4OeQkB.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Best heuristic value so far: 22.135397
+INFO: Improvement
+INFO: Iteration 14
+INFO: Running creduce
+===< 120945 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(-0.4 %, 519 bytes)
+===< pass_lines :: 1 >===
+(-3.5 %, 535 bytes)
+(-0.6 %, 520 bytes)
+===< pass_lines :: 2 >===
+(-3.5 %, 535 bytes)
+===< pass_lines :: 3 >===
+(-6.4 %, 550 bytes)
+===< pass_lines :: 4 >===
+(-9.3 %, 565 bytes)
+===< pass_lines :: 6 >===
+(-12.2 %, 580 bytes)
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## interesting_KEYViNK2hyqomBOW.c
+################## interesting_uYEvfIt2NLE3OfXS.c
+################## interesting_uPmscq8s6PsEU6Oe.c
+################## interesting_gqytqA5fjencImyd.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 517, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+################## interesting_fzFMadGiDVeMLs7N.c
+################## interesting_UpRSOJpkTAKAgkBG.c
+################## interesting_2Ta9RvKZU8heXzNb.c
+################## init_14.c
+################## interesting_2OCcEuX8OmaXVkmc.c
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-14/interesting_gqytqA5fjencImyd.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Best heuristic value so far: 22.135397
+INFO: Improvement
+INFO: Iteration 15
+INFO: Running creduce
+===< 124211 >===
+running 3 interestingness tests in parallel
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_ifs :: 0 >===
+===< pass_includes :: 0 >===
+===< pass_line_markers :: 0 >===
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(-0.4 %, 519 bytes)
+===< pass_lines :: 1 >===
+(-3.5 %, 535 bytes)
+(-0.6 %, 520 bytes)
+===< pass_lines :: 2 >===
+(-3.5 %, 535 bytes)
+===< pass_lines :: 3 >===
+(-6.4 %, 550 bytes)
+===< pass_lines :: 4 >===
+(-9.3 %, 565 bytes)
+INFO: CReduce timed out
+INFO: Compiling candidates
+################## init_15.c
+################## interesting_eUGESTwq59R48paY.c
+################## interesting_5Ua3U2f7hsSsEUkS.c
+INFO: Source code size difference: 0, binary size difference: 0
+INFO: Initial source code size: 517, initial binary size: 11444
+INFO: Reduced source code size: 517, reduced binary size: 11444
+INFO: Ratio: 22.135397
+################## interesting_HyYY2LVkSm5o7zaA.c
+################## interesting_ES15MpgdhOpsfIPr.c
+################## interesting_7q0OyBnAnU30cgpR.c
+################## interesting_Z5bIosWK3Uo8Fifx.c
+################## interesting_nk92L9fkmn1tbIQV.c
+INFO: Best candidate this iteration: /home/nikch/Documents/Repositories/ast-project/testing_output/iteration-15/interesting_5Ua3U2f7hsSsEUkS.c
+INFO: Best heuristic value this iteration: 22.135397
+INFO: Best heuristic value so far: 22.135397
+INFO: Improvement
+INFO: Finished after 300 seconds
+INFO: Done

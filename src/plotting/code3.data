@@ -1,0 +1,71 @@
+#include "csmith.h"
+struct S1 {
+    const signed f0 : 14;
+    const uint16_t  f1;
+    const uint32_t  f2;
+ };
+#pragma pack(1)
+struct S2 {
+    signed f0 : 31;
+    const volatile unsigned f1 : 4;
+    unsigned f2 : 28;
+    volatile signed f3 : 5;
+    const volatile unsigned f4 : 15;
+    signed f5 : 10;
+    signed f6 : 23;
+    volatile unsigned f7 : 1;
+    unsigned f8 : 16;
+ };
+ struct S5 {
+    uint64_t  f0;
+    uint64_t  f1;
+    const volatile uint32_t  f2;
+    uint16_t  f3;
+    volatile struct S1  f4;
+    struct S2  f5;
+ };
+  static int32_t g_3 = 1L;
+  static int64_t g_10 = 0x75123020F620A341LL;
+  static volatile uint64_t g_11 = 0xBA10F40BF68D270CLL;
+  static struct S5 g_14 = {
+0x97C242EA6AE20245LL,0UL,1UL,0x6679L,{-104,0x4DBBL,18446744073709551615UL}
+,{-9575,2,2261,1,75,31,160,0,72}
+};
+  static struct S5  func_1(void) {
+      int32_t *l_2 = &g_3;
+     int32_t l_4 = 0x0F758FC5L;
+     int32_t *l_5 = &g_3;
+     int32_t *l_6 = &l_4;
+     int32_t *l_7 = &l_4;
+     int32_t *l_8 = &l_4;
+     int32_t *l_9[10] = {&g_3,&g_3,&g_3,&g_3,&g_3,&g_3,&g_3,&g_3,&g_3,&g_3};
+     return g_14;
+ }
+  int main (int argc, char* argv[]) {
+     int print_hash_value = 0;
+     if (argc == 2 && strcmp(argv[1], "1") == 0) print_hash_value = 1;
+     platform_main_begin();
+     crc32_gentab();
+     func_1();
+     transparent_crc(g_3, "g_3", print_hash_value);
+     transparent_crc(g_10, "g_10", print_hash_value);
+     transparent_crc(g_11, "g_11", print_hash_value);
+     transparent_crc(g_14.f0, "g_14.f0", print_hash_value);
+     transparent_crc(g_14.f1, "g_14.f1", print_hash_value);
+     transparent_crc(g_14.f2, "g_14.f2", print_hash_value);
+     transparent_crc(g_14.f3, "g_14.f3", print_hash_value);
+     transparent_crc(g_14.f4.f0, "g_14.f4.f0", print_hash_value);
+     transparent_crc(g_14.f4.f1, "g_14.f4.f1", print_hash_value);
+     transparent_crc(g_14.f4.f2, "g_14.f4.f2", print_hash_value);
+     transparent_crc(g_14.f5.f0, "g_14.f5.f0", print_hash_value);
+     transparent_crc(g_14.f5.f1, "g_14.f5.f1", print_hash_value);
+     transparent_crc(g_14.f5.f2, "g_14.f5.f2", print_hash_value);
+     transparent_crc(g_14.f5.f3, "g_14.f5.f3", print_hash_value);
+     transparent_crc(g_14.f5.f4, "g_14.f5.f4", print_hash_value);
+     transparent_crc(g_14.f5.f5, "g_14.f5.f5", print_hash_value);
+     transparent_crc(g_14.f5.f6, "g_14.f5.f6", print_hash_value);
+     transparent_crc(g_14.f5.f7, "g_14.f5.f7", print_hash_value);
+     transparent_crc(g_14.f5.f8, "g_14.f5.f8", print_hash_value);
+     platform_main_end(crc32_context ^ 0xFFFFFFFFUL, print_hash_value);
+ }
+
