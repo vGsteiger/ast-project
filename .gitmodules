@@ -1,0 +1,3 @@
+[submodule "src/srcreduce/diopter"]
+	path = src/srcreduce/diopter
+	url = https://github.com/DeadCodeProductions/diopter.git

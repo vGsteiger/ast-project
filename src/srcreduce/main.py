@@ -7,6 +7,10 @@ import time
 import random
 import string
 import shutil
+sys.path.append(os.getcwd()+"/src/srcreduce/diopter")
+from diopter.compiler import Language
+from diopter.compiler import SourceProgram
+from diopter.sanitizer import Sanitizer
 
 
 def generate_source_code(args):
@@ -22,6 +26,11 @@ def generate_source_code(args):
         if args.optional_csmith_args is not None:
             cmsmith_args += " " + args.optional_csmith_args
         source_code = subprocess.check_output([args.csmith], universal_newlines=True)
+        src_code_diopter_obj = SourceProgram(code=source_code, language=Language.C)
+        sanitizer = Sanitizer()
+        # Note: csmith include path must be in CPATH
+        if not sanitizer.check_for_compiler_warnings(src_code_diopter_obj) and not sanitizer.check_for_ub_and_address_sanitizer_errors(src_code_diopter_obj):
+            return generate_source_code(args)
     else:
         logging.error("No source code generation method specified")
         sys.exit(1)
@@ -57,6 +66,16 @@ def run(args, initial_output):
                 continue
 
             candidate = os.path.join(candidates_dir, candidate)
+
+            # Sanitizer check
+            with open(candidate, "r") as f:
+                source_code = f.read()
+            src_code_diopter_obj = SourceProgram(code=source_code, language=Language.C)
+            sanitizer = Sanitizer()
+            # Note: csmith include path must be in CPATH
+            if not sanitizer.check_for_compiler_warnings(src_code_diopter_obj) and not sanitizer.check_for_ub_and_address_sanitizer_errors(src_code_diopter_obj):
+                continue
+
 
             binary_path: str = compile_source_code(args, candidate)
             if binary_path is None:
@@ -412,3 +431,4 @@ if __name__ == "__main__":
     main()
 
 # cmd: python src/srcreduce/main.py --csmith csmith --creduce creduce --compiler gcc --random --output /Users/viktorgsteiger/Documents/ast-project/testing_output --csmith-include /opt/homebrew/Cellar/csmith/2.3.0/include/csmith-2.3.0
+# cmd: python src/srcreduce/main.py --csmith /home/nikch/csmith-install/bin/csmith --creduce creduce --compiler gcc --random --output /home/nikch/Documents/Repositories/ast-project/testing_output --csmith-include /home/nikch/csmith-install/include
