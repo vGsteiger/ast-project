@@ -2,7 +2,7 @@
 
 Project repository for Automatic Software Testing lecture project
 
-## Students
+## Students
 
 - Viktor Gsteiger (vgsteiger@student.ethz.ch)
 - Nikodem Kernbach (nkernbach@student.ethz.ch)
