@@ -20,6 +20,14 @@ The project is structured as follows:
 
 ## Usage
 
+### Dependencies
+
+You need to add the path to csmith header files to the `CPATH` environment variable for the sanitizing checks to work correctly. On ubuntu, you can add the following at the end of your `.bashrc` file and restart your machine:
+```
+# Add csmith include to cpath
+export CPATH="[path to include dir of csmith installation]"
+```
+
 ### Source code reduction
 
 The source code reduction is implemented in the `srcreduce` module. It can be used as follows:
