@@ -4,8 +4,8 @@ Project repository for Automatic Software Testing lecture project
 
 ## Students
 
-- Viktor Gsteiger (vgsteiger@student.ethz.ch)
-- Nikodem Kernbach (nkernbach@student.ethz.ch)
+- Viktor Gsteiger (<vgsteiger@student.ethz.ch>)
+- Nikodem Kernbach (<nkernbach@student.ethz.ch>)
 
 ## Project description
 
@@ -29,17 +29,36 @@ The project is structured as follows:
 ### Dependencies
 
 You need to add the path to csmith header files to the `CPATH` environment variable for the sanitizing checks to work correctly. On ubuntu, you can add the following at the end of your `.bashrc` file and restart your machine:
-```
+
+```bash
 # Add csmith include to cpath
 export CPATH="[path to include dir of csmith installation]"
 ```
 
-### Source code reduction
-
-The source code reduction is implemented in the `srcreduce` module. It can be used as follows:
+Additionally, we suggest to use a virtual environment for the project. You can create a virtual environment with the following command:
 
 ```bash
-$ python3 -m srcreduce -h
+python3 -m venv scrReduceEnv
+```
+
+You can activate the virtual environment with the following command:
+
+```bash
+source scrReduceEnv/bin/activate
+```
+
+### Source code reduction
+
+The source code reduction is implemented in the `srcreduce` module. You can install the module with the following command:
+
+```bash
+pip install -e .
+```
+
+It can be used as follows:
+
+```bash
+$ srcReduce -h
 usage: main.py [-h] [-v] [-o OUTPUT] [-s] [-t TIMEOUT] [--timeout-creduce TIMEOUT_CREDUCE]
                [--timeout-creduce-iteration TIMEOUT_CREDUCE_ITERATION] [-m MAX_ITERATIONS] [-r] [-e EXAMPLE]
                [--optional-csmith-args OPTIONAL_CSMITH_ARGS] --csmith CSMITH --csmith-include CSMITH_INCLUDE --creduce CREDUCE
@@ -47,6 +66,7 @@ usage: main.py [-h] [-v] [-o OUTPUT] [-s] [-t TIMEOUT] [--timeout-creduce TIMEOU
 ```
 
 The following options are available:
+
 ```bash
   -h, --help                        show this help message and exit
   -v, --verbose                     show verbose output
@@ -65,4 +85,12 @@ The following options are available:
   --candidates CANDIDATES           number of cvsise canidates
   --compiler COMPILER               path to compiler
   --compiler-args COMPILER_ARGS     compiler arguments
+```
+
+### Example
+
+The following command can be used to reduce the size of a random generated source code:
+
+```bash
+srcReduce  --csmith csmith --creduce creduce --compiler gcc --random --output [OUTPUT_DIR] --csmith-include [CSMITH_UNCLUDE] --timeout-creduce 10 --timeout-creduce-iteration 150 --timeout 900
 ```
