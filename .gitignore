@@ -57,3 +57,10 @@ interestingness_test.sh
 *.orig
 
 .vscode/
+__pycache__/
+build/
+*.egg-info/
+*.log
+.DS_Store
+plots/
+logs/
