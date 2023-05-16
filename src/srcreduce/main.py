@@ -465,6 +465,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# cmd: python src/srcreduce/main.py --csmith csmith --creduce creduce --compiler gcc --random --output /Users/viktorgsteiger/Documents/ast-project/testing_output --csmith-include /opt/homebrew/Cellar/csmith/2.3.0/include/csmith-2.3.0 --timeout-creduce 10 --timeout-creduce-iteration 150 --timeout 900
-# cmd: python src/srcreduce/main.py --csmith /home/nikch/csmith-install/bin/csmith --creduce creduce --compiler gcc --random --output /home/nikch/Documents/Repositories/ast-project/testing_output --csmith-include /home/nikch/csmith-install/include
