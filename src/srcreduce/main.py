@@ -45,35 +45,57 @@ def generate_source_code(args):
 
     return source_code
 
+def gen_and_save_src_code(args, init_iter):
+    source_code = generate_source_code(args)
 
-def run(args, initial_output):
+    src_code_path = args.output + "/init" + str(init_iter) + ".c"
+        
+    # Write source code to file
+    with open(src_code_path, "w") as f:
+        f.write(source_code)
+
+    return src_code_path
+
+def new_run(args):
     start_time: int = time.time()
-
-    last_source_code_path: str = initial_output
-    last_heuristic_value: float = None
-    i = 0
-
+    # counts iterations
+    iter: int = 0
+    # counts iterations of new sampled codes
+    init_iter: int = 0
+    
+    candidates_pq = []
+    best_code_path = None
+    best_code_heuristic = None
+    best_code_init = None
+    next_code_path = None
+    next_code_heuristic = None
+    next_code_init = None    
+    
     logging.info("Reducing")
+    #max iterations = max no of creduce runs
+    while start_time + args.timeout > time.time() and iter < args.max_iterations:
+        iter += 1
+        if len(candidates_pq) == 0:
+            init_iter += 1
+            next_code_init = gen_and_save_src_code(args, init_iter)
+            next_code_path = next_code_init
+            next_code_heuristic = calculate_heuristic_value(args, next_code_init, next_code_path)
+        else:
+            candidates_pq.sort(reverse=True)
+            next_code_path = candidates_pq.pop(0)[1]
+            next_code_heuristic = calculate_heuristic_value(args, next_code_init, next_code_path)
+        
+        logging.info("Init code iter %d", init_iter)
+        logging.info("Iteration %d", iter)
 
-    while start_time + args.timeout > time.time() and i < args.max_iterations:
-        logging.info("Iteration %d", i)
-        candidates_dir: str = generate_reduced_source_code_candidate(
-            args, last_source_code_path, i
-        )
-
-        if candidates_dir is None:
-            logging.error("Candidate generation failed")
-            continue
-
-        candidates_scores: dict[str:float] = dict()
-        candidates_info: dict[str: tuple[str, str]] = dict()
-
+        candidates_dir: str = generate_reduced_source_code_candidate(args, next_code_path, iter)
+        #candidates_scores: dict[str:float] = dict()
+#        candidates_info: dict[str: tuple[str, str]] = dict()
         logging.info("Compiling candidates")
-
         for candidate in os.listdir(candidates_dir):
             if not candidate.endswith(".c"):
                 continue
-
+            
             candidate = os.path.join(candidates_dir, candidate)
 
             # Sanitizer check
@@ -85,7 +107,6 @@ def run(args, initial_output):
             if not sanitizer.check_for_compiler_warnings(src_code_diopter_obj) and not sanitizer.check_for_ub_and_address_sanitizer_errors(src_code_diopter_obj):
                 continue
 
-
             binary_path: str = compile_source_code(args, candidate)
             if binary_path is None:
                 logging.error("Compilation failed")
@@ -93,38 +114,41 @@ def run(args, initial_output):
 
             heuristic_value: float = calculate_heuristic_value(
                 args,
-                last_source_code_path,
+                next_code_init,
                 candidate,
-                candidates_info
+#                candidates_info
             )
 
-            candidates_scores[candidate] = heuristic_value
+            if heuristic_value > next_code_heuristic:
+                candidates_pq.append((heuristic_value, candidate))
 
-        best_candidate: str = max(candidates_scores, key=candidates_scores.get)
-        logging.info("Best candidate this iteration: %s", best_candidate)
-        logging.info("Best heuristic value this iteration: %f", candidates_scores[best_candidate])
-        logging.info("Best candidate info: %s", candidates_info[best_candidate])
-        # TODO: Local minimum detection -> start over with some previous version
-        # TODO: If this is still not improving, start over with a random new code
-        if last_heuristic_value is not None:
-            logging.info("Best heuristic value so far: %f", last_heuristic_value)
-        if (
-            last_heuristic_value is not None
-            and candidates_scores[best_candidate] < last_heuristic_value
-        ):
-            logging.info("No improvement")
+        candidates_pq.sort(reverse=True)
+        if len(candidates_pq) == 0:
+            logging.info("No new candidates this iteration")
         else:
-            logging.info("Improvement")
-            last_source_code_path = best_candidate
-            last_heuristic_value = candidates_scores[best_candidate]
+            best_candidate_this_iter = candidates_pq[0][1]
+            best_heuristic_this_iter = candidates_pq[0][0]
+            logging.info("Best candidate this iteration: %s", best_candidate_this_iter)
+            logging.info("Best heuristic value this iteration: %f", best_heuristic_this_iter)
+#            logging.info("Best candidate info: %s", candidates_info[best_heuristic_this_iter])
+            if best_code_heuristic is None or best_heuristic_this_iter > best_code_heuristic:
+                logging.info("This iters best is global best")
+                best_code_path = best_candidate_this_iter
+                best_code_heuristic = best_heuristic_this_iter
+                best_code_init = next_code_init
+            else:
+                logging.info("No new global best found")
 
-        i += 1
+    best_file_dest_path = args.output + "/last.c"
+    shutil.copyfile(best_code_path, best_file_dest_path)
+    logging.info("The best code was %s", best_code_path)
+    logging.info("with heuristic %f", best_code_heuristic)
+    logging.info("derived from %s", best_code_init)
+    # Used to print info in the end
+    calculate_heuristic_value(args, best_code_init, best_code_path)
 
-    last_file_path = args.output + "/last.c"
-    shutil.copyfile(last_source_code_path, last_file_path)
-
-    if i == args.max_iterations:
-        logging.info("Finished after %d iterations", i)
+    if iter == args.max_iterations:
+        logging.info("Finished after %d iterations", iter)
     else:
         logging.info("Finished after %d seconds", time.time() - start_time)
 
@@ -185,7 +209,7 @@ def calculate_heuristic_value(
     args,
     original_source_code_path,
     reduced_source_code_path,
-    candidates_info,
+    candidates_info=None,
 ) -> float:
     # Size of the .text-section from the binary sample (larger is better).
     # (2) Size of the corresponding code sample (must not be larger than the original, smaller is better).
@@ -229,7 +253,9 @@ def calculate_heuristic_value(
     )
     logging.info("Ratio: %f", reduced_bin_size / reduced_source_code_size)
 
-    candidates_info[reduced_source_code_path] = (reduced_source_code_size, reduced_bin_size)
+    # skipping assignment if no condidates_info provided
+    if candidates_info is not None:
+        candidates_info[reduced_source_code_path] = (reduced_source_code_size, reduced_bin_size)
 
     # TODO: Large difference to previously generated mutants where we utilize similarity measures
 
@@ -418,26 +444,18 @@ def main():
         logging.error("Example file does not exist: %s", args.example)
         sys.exit(1)
 
-    # Generate source code
-    source_code = generate_source_code(args)
-
-    initial_output = args.output + "/init.c"
-
+    # Cleanup output dir
     if not os.path.exists(args.output):
         os.makedirs(args.output)
     else:
         # Remove everything in the output directory
         shutil.rmtree(args.output)
         os.makedirs(args.output)
-        
-    # Write source code to file
-    with open(initial_output, "w") as f:
-        f.write(source_code)
 
     # Run framework
     logging.info("Running framework")
     try:
-        run(args, initial_output)
+        new_run(args)
     finally:
         logging.info("Done")
         for item in os.listdir(os.getcwd()):
