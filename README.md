@@ -62,7 +62,7 @@ $ srcReduce -h
 usage: main.py [-h] [-v] [-o OUTPUT] [-s] [-t TIMEOUT] [--timeout-creduce TIMEOUT_CREDUCE]
                [--timeout-creduce-iteration TIMEOUT_CREDUCE_ITERATION] [-m MAX_ITERATIONS] [-r] [-e EXAMPLE]
                [--optional-csmith-args OPTIONAL_CSMITH_ARGS] --csmith CSMITH --csmith-include CSMITH_INCLUDE --creduce CREDUCE
-               [--candidates CANDIDATES] --compiler COMPILER [--compiler-args COMPILER_ARGS]
+               [--candidates CANDIDATES] --compiler COMPILER [--compiler-args COMPILER_ARGS] [--regenerate]
 ```
 
 The following options are available:
@@ -85,6 +85,7 @@ The following options are available:
   --candidates CANDIDATES           number of cvsise canidates
   --compiler COMPILER               path to compiler
   --compiler-args COMPILER_ARGS     compiler arguments
+  --regenerate                      regenerate with csmith the source code if no new candidate was found
 ```
 
 ### Example
