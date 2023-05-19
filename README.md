@@ -61,7 +61,10 @@ It can be used as follows:
 $ srcReduce -h
 usage: main.py [-h] [-v] [-o OUTPUT] [-s] [-t TIMEOUT] [--timeout-creduce TIMEOUT_CREDUCE]
                [--timeout-creduce-iteration TIMEOUT_CREDUCE_ITERATION] [-m MAX_ITERATIONS] [-r] [-e EXAMPLE]
-               [--optional-csmith-args OPTIONAL_CSMITH_ARGS] --csmith CSMITH --csmith-include CSMITH_INCLUDE --creduce CREDUCE
+               --csmith CSMITH --csmith-include CSMITH_INCLUDE [--csmith-max-expr-complexity CSMITH_MAX_EXPR_COMPLEXITY]
+               [--csmith-max-block-depth CSMITH_MAX_BLOCK_DEPTH] [--csmith-stop-by-stmt CSMITH_STOP_BY_STMT]
+               [--csmith-seed CSMITH_SEED]
+               --creduce CREDUCE
                [--candidates CANDIDATES] --compiler COMPILER [--compiler-args COMPILER_ARGS] [--regenerate]
 ```
 
@@ -78,9 +81,12 @@ The following options are available:
   -m MAX_ITERATIONS, --max-iterations MAX_ITERATIONS maximum number of iterations
   -r, --random                      use random source code generation
   -e EXAMPLE, --example EXAMPLE     use example source code generation based on the given example file
-  --optional-csmith-args OPTIONAL_CSMITH_ARGS optional csmith arguments
   --csmith CSMITH                   path to csmith
   --csmith-include CSMITH_INCLUDE   path to csmith include
+  --csmith-max-expr-complexity      maximum expression complexity for csmith
+  --csmith-max-block-depth          maximum block depth for csmith
+  --csmith-stop-by-stmt             stop csmith generation after the given number of statements
+  --csmith-seed                     seed for csmith
   --creduce CREDUCE                 path to creduce
   --candidates CANDIDATES           number of cvsise canidates
   --compiler COMPILER               path to compiler

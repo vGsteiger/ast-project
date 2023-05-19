@@ -30,7 +30,10 @@ def generate_source_code(args):
         logging.info("Generating random source code")
         source_code = ""
         # Generate random source code with csmith:
-        cmsmith_args = "--max-expr-complexity=" + str(len(vars(args)))
+        cmsmith_args = "--max-expr-complexity=" + str(args.csmith_max_expr_complexity)
+        cmsmith_args += " --max-block-depth=" + str(args.csmith_max_block_depth)
+        cmsmith_args += " --stop-by-stmt=" + str(args.csmith_stop_by_stmt)
+        cmsmith_args += " --seed=" + str(args.csmith_seed)
         if args.optional_csmith_args is not None:
             cmsmith_args += " " + args.optional_csmith_args
         source_code = subprocess.check_output([args.csmith], universal_newlines=True)
@@ -409,13 +412,14 @@ def main():
         type=str,
         help="use example source code generation based on the given example file",
     )
-    parser.add_argument(
-        "--optional-csmith-args", type=str, help="optional csmith arguments"
-    )
     parser.add_argument("--csmith", type=str, help="path to csmith", required=True)
     parser.add_argument(
         "--csmith-include", type=str, help="path to csmith include", required=True
     )
+    parser.add_argument("--csmith-max-expr-complexity", type=int, default=10)
+    parser.add_argument("--csmith-max-block-depth", type=int, default=5)
+    parser.add_argument("--csmith-stop-by-stmt", type=int, default=100)
+    parser.add_argument("--csmith-seed", type=int, default=0)
     parser.add_argument("--creduce", type=str, help="path to creduce", required=True)
     parser.add_argument(
         "--candidates", type=int, help="number of cvsise canidates", default=20
