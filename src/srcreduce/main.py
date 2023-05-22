@@ -30,7 +30,10 @@ def generate_source_code(args):
         logging.info("Generating random source code")
         source_code = ""
         # Generate random source code with csmith:
-        cmsmith_args = "--max-expr-complexity=" + str(len(vars(args)))
+        cmsmith_args = "--max-expr-complexity=" + str(args.csmith_max_expr_complexity)
+        cmsmith_args += " --max-block-depth=" + str(args.csmith_max_block_depth)
+        cmsmith_args += " --stop-by-stmt=" + str(args.csmith_stop_by_stmt)
+        cmsmith_args += " --seed=" + str(args.csmith_seed)
         if args.optional_csmith_args is not None:
             cmsmith_args += " " + args.optional_csmith_args
         source_code = subprocess.check_output([args.csmith], universal_newlines=True)
@@ -72,25 +75,25 @@ def new_run(args):
     next_code_init = None    
     
     logging.info("Reducing")
-    #max iterations = max no of creduce runs
+
     while start_time + args.timeout > time.time() and iter < args.max_iterations:
         iter += 1
         if len(candidates_pq) == 0:
-            init_iter += 1
-            next_code_init = gen_and_save_src_code(args, init_iter)
-            next_code_path = next_code_init
-            next_code_heuristic = calculate_heuristic_value(args, next_code_init, next_code_path)
+            if args.regenerate:
+                init_iter += 1
+                next_code_init = gen_and_save_src_code(args, init_iter)
+                next_code_path = next_code_init
+            else:
+                break
         else:
             candidates_pq.sort(reverse=True)
             next_code_path = candidates_pq.pop(0)[1]
-            next_code_heuristic = calculate_heuristic_value(args, next_code_init, next_code_path)
         
         logging.info("Init code iter %d", init_iter)
         logging.info("Iteration %d", iter)
 
         candidates_dir: str = generate_reduced_source_code_candidate(args, next_code_path, iter)
-        #candidates_scores: dict[str:float] = dict()
-#        candidates_info: dict[str: tuple[str, str]] = dict()
+
         logging.info("Compiling candidates")
         for candidate in os.listdir(candidates_dir):
             if not candidate.endswith(".c"):
@@ -116,11 +119,9 @@ def new_run(args):
                 args,
                 next_code_init,
                 candidate,
-#                candidates_info
             )
 
-            if heuristic_value > next_code_heuristic:
-                candidates_pq.append((heuristic_value, candidate))
+            candidates_pq.append((heuristic_value, candidate))
 
         candidates_pq.sort(reverse=True)
         if len(candidates_pq) == 0:
@@ -130,7 +131,6 @@ def new_run(args):
             best_heuristic_this_iter = candidates_pq[0][0]
             logging.info("Best candidate this iteration: %s", best_candidate_this_iter)
             logging.info("Best heuristic value this iteration: %f", best_heuristic_this_iter)
-#            logging.info("Best candidate info: %s", candidates_info[best_heuristic_this_iter])
             if best_code_heuristic is None or best_heuristic_this_iter > best_code_heuristic:
                 logging.info("This iters best is global best")
                 best_code_path = best_candidate_this_iter
@@ -179,7 +179,6 @@ def calculate_source_and_binary_size(args, source_code_path):
 
 
 def calculate_size(path) -> int:
-    # Tranform this size tmp.o | awk '{{print $1}}' | tail -n 1 into a python function
     return int(
         subprocess.check_output(
             ["size", path],
@@ -257,8 +256,6 @@ def calculate_heuristic_value(
     if candidates_info is not None:
         candidates_info[reduced_source_code_path] = (reduced_source_code_size, reduced_bin_size)
 
-    # TODO: Large difference to previously generated mutants where we utilize similarity measures
-
     return reduced_bin_size / reduced_source_code_size
 
 
@@ -289,7 +286,6 @@ def generate_reduced_source_code_candidate(args, source_code_path, iteration) ->
 
     local_new_source_code_path = os.path.basename(new_source_code_path)
 
-    # TODO: Make this faster, improve as it is part of the heuristic
     interestingness_test = f"""
 #!/bin/bash
 {args.compiler} {source_code_path} -o orig.o -w -I{args.csmith_include}
@@ -416,19 +412,21 @@ def main():
         type=str,
         help="use example source code generation based on the given example file",
     )
-    parser.add_argument(
-        "--optional-csmith-args", type=str, help="optional csmith arguments"
-    )
     parser.add_argument("--csmith", type=str, help="path to csmith", required=True)
     parser.add_argument(
         "--csmith-include", type=str, help="path to csmith include", required=True
     )
+    parser.add_argument("--csmith-max-expr-complexity", type=int, default=10)
+    parser.add_argument("--csmith-max-block-depth", type=int, default=5)
+    parser.add_argument("--csmith-stop-by-stmt", type=int, default=100)
+    parser.add_argument("--csmith-seed", type=int, default=0)
     parser.add_argument("--creduce", type=str, help="path to creduce", required=True)
     parser.add_argument(
         "--candidates", type=int, help="number of cvsise canidates", default=20
     )
     parser.add_argument("--compiler", type=str, help="path to compiler", required=True)
     parser.add_argument("--compiler-args", type=str, help="compiler arguments")
+    parser.add_argument("--regenerate", action="store_true", help="Generate new code if no new candidates are found for the current initial code")
 
     # Parse arguments
     args = parser.parse_args()
