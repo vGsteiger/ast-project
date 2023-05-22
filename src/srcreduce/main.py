@@ -34,8 +34,6 @@ def generate_source_code(args):
         cmsmith_args += " --max-block-depth=" + str(args.csmith_max_block_depth)
         cmsmith_args += " --stop-by-stmt=" + str(args.csmith_stop_by_stmt)
         cmsmith_args += " --seed=" + str(args.csmith_seed)
-        if args.optional_csmith_args is not None:
-            cmsmith_args += " " + args.optional_csmith_args
         source_code = subprocess.check_output([args.csmith], universal_newlines=True)
         src_code_diopter_obj = SourceProgram(code=source_code, language=Language.C)
         sanitizer = Sanitizer()
@@ -78,13 +76,10 @@ def new_run(args):
 
     while start_time + args.timeout > time.time() and iter < args.max_iterations:
         iter += 1
-        if len(candidates_pq) == 0:
-            if args.regenerate:
-                init_iter += 1
-                next_code_init = gen_and_save_src_code(args, init_iter)
-                next_code_path = next_code_init
-            else:
-                break
+        if len(candidates_pq) == 0 and args.regenerate:
+            init_iter += 1
+            next_code_init = gen_and_save_src_code(args, init_iter)
+            next_code_path = next_code_init
         else:
             candidates_pq.sort(reverse=True)
             next_code_path = candidates_pq.pop(0)[1]
@@ -131,6 +126,7 @@ def new_run(args):
             best_heuristic_this_iter = candidates_pq[0][0]
             logging.info("Best candidate this iteration: %s", best_candidate_this_iter)
             logging.info("Best heuristic value this iteration: %f", best_heuristic_this_iter)
+            logging.info("Best candidate info: %s", calculate_source_and_binary_size(args, best_candidate_this_iter))
             if best_code_heuristic is None or best_heuristic_this_iter > best_code_heuristic:
                 logging.info("This iters best is global best")
                 best_code_path = best_candidate_this_iter
