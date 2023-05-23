@@ -50,7 +50,8 @@ def gen_and_save_src_code(args, init_iter):
     source_code = generate_source_code(args)
 
     src_code_path = args.output + "/init" + str(init_iter) + ".c"
-        
+    
+    logging.info("Writing source code to file: %s", src_code_path)
     # Write source code to file
     with open(src_code_path, "w") as f:
         f.write(source_code)
@@ -70,13 +71,17 @@ def new_run(args):
     best_code_init = None
     next_code_path = None
     next_code_heuristic = None
-    next_code_init = None    
+    next_code_init = None
+
+    first_candidate = gen_and_save_src_code(args, init_iter)
+    candidates_pq.append((0, first_candidate))
     
     logging.info("Reducing")
 
     while start_time + args.timeout > time.time() and iter < args.max_iterations:
         iter += 1
         if len(candidates_pq) == 0 and args.regenerate:
+            logging.info("No candidates left, generating new source code")
             init_iter += 1
             next_code_init = gen_and_save_src_code(args, init_iter)
             next_code_path = next_code_init
@@ -422,7 +427,7 @@ def main():
     )
     parser.add_argument("--compiler", type=str, help="path to compiler", required=True)
     parser.add_argument("--compiler-args", type=str, help="compiler arguments")
-    parser.add_argument("--regenerate", action="store_true", help="Generate new code if no new candidates are found for the current initial code")
+    parser.add_argument("--regenerate", action="store_true", help="Generate new code if no new candidates are found for the current initial code", default=False)
 
     # Parse arguments
     args = parser.parse_args()
