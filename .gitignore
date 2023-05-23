@@ -55,6 +55,7 @@ platform.info
 testing_output/
 interestingness_test.sh
 *.orig
+testing_output*/
 
 .vscode/
 __pycache__/

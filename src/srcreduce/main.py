@@ -39,6 +39,7 @@ def generate_source_code(args):
         sanitizer = Sanitizer()
         # Note: csmith include path must be in CPATH
         if not sanitizer.check_for_compiler_warnings(src_code_diopter_obj) and not sanitizer.check_for_ub_and_address_sanitizer_errors(src_code_diopter_obj):
+            logging.error("Generated source code contains compiler warnings or UB")
             return generate_source_code(args)
     else:
         logging.error("No source code generation method specified")
@@ -117,7 +118,7 @@ def new_run(args):
 
             heuristic_value: float = calculate_heuristic_value(
                 args,
-                next_code_init,
+                next_code_path,
                 candidate,
             )
 
@@ -165,6 +166,7 @@ def calculate_source_and_binary_size(args, source_code_path):
             f"{source_code_path}",
             "-o",
             "temp.o",
+            "-" + args.compiler_flag,
             "-w",
             f"-I{args.csmith_include}",
         ],
@@ -289,12 +291,17 @@ def generate_reduced_source_code_candidate(args, source_code_path, iteration) ->
 
     interestingness_test = f"""
 #!/bin/bash
-{args.compiler} {source_code_path} -o orig.o -w -I{args.csmith_include}
-{args.compiler} {local_new_source_code_path} -o tmp.o -w -I{args.csmith_include}
+{args.compiler} {source_code_path} -o orig.o -{args.compiler_flag} -w -I{args.csmith_include}
+{args.compiler} {local_new_source_code_path} -o tmp.o -{args.compiler_flag} -w -I{args.csmith_include}
 ./tmp.o
 
 # If the new binary does not run at all, it is not interesting
 if [ $? -ne 0 ]; then
+    exit 1
+fi
+
+# If the new soure code is smaller than 50 bytes, it is not interesting
+if [ $(wc -c < {local_new_source_code_path}) -lt 50 ]; then
     exit 1
 fi
 
@@ -426,7 +433,7 @@ def main():
         "--candidates", type=int, help="number of cvsise canidates", default=20
     )
     parser.add_argument("--compiler", type=str, help="path to compiler", required=True)
-    parser.add_argument("--compiler-args", type=str, help="compiler arguments")
+    parser.add_argument("--compiler-flag", type=str, help="compiler flag", default="")
     parser.add_argument("--regenerate", action="store_true", help="Generate new code if no new candidates are found for the current initial code", default=False)
 
     # Parse arguments
@@ -437,6 +444,7 @@ def main():
         format="%(levelname)s: %(message)s",
         level=logging.DEBUG if args.verbose else logging.INFO,
     )
+    logging.info("Starting framework with the following arguments: %s", args)
 
     # Check if source code example file
     if args.example is not None and not os.path.exists(args.example):
