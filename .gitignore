@@ -65,3 +65,5 @@ build/
 .DS_Store
 plots/
 logs/
+
+clang_output*/

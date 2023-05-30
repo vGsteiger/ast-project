@@ -156,6 +156,9 @@ def new_run(args):
 
 
 def calculate_source_and_binary_size(args, source_code_path):
+    if source_code_path is None:
+        logging.error("No source code path given")
+        return 0, 0
     size = os.path.getsize(source_code_path)
 
     devnull = open(os.devnull, "w")
@@ -217,6 +220,8 @@ def calculate_heuristic_value(
     # (2) Size of the corresponding code sample (must not be larger than the original, smaller is better).
     # (3) Binary size to source code ratio (larger is better).
 
+    logging.info("Calculating heuristic value for %s and comparing to %s", reduced_source_code_path, original_source_code_path)
+
     (
         source_code_size_difference,
         bin_size_difference,
@@ -234,10 +239,11 @@ def calculate_heuristic_value(
     if bin_size_difference > 0:
         return 0
     
-    if reduced_source_code_size <= 18:
-        # Special case for file that is always 18 bytes because only contains a single function declaration
+    if reduced_source_code_size <= 500:
+        # Special case for file that is always 500 bytes because only contains a single function declaration
         return 0
 
+    logging.info(f"Comparing original source code {original_source_code_path} with {reduced_source_code_path}")
     logging.info(
         "Source code size difference: %d, binary size difference: %d",
         source_code_size_difference,
@@ -300,8 +306,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# If the new soure code is smaller than 50 bytes, it is not interesting
-if [ $(wc -c < {local_new_source_code_path}) -lt 50 ]; then
+# If the new soure code is smaller than 500 bytes, it is not interesting
+if [ $(wc -c < {local_new_source_code_path}) -lt 500 ]; then
     exit 1
 fi
 
@@ -382,9 +388,6 @@ def main():
         "-v", "--verbose", action="store_true", help="show verbose output"
     )
     parser.add_argument("-o", "--output", type=str, help="output directory")
-    parser.add_argument(
-        "-s", "--show", action="store_true", help="show the generated source code"
-    )
     parser.add_argument(
         "-t",
         "--timeout",
