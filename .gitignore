@@ -67,3 +67,4 @@ plots/
 logs/
 
 clang_output*/
+init_*

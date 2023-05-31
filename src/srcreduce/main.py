@@ -427,17 +427,17 @@ def main():
     parser.add_argument(
         "--csmith-include", type=str, help="path to csmith include", required=True
     )
-    parser.add_argument("--csmith-max-expr-complexity", type=int, default=10)
-    parser.add_argument("--csmith-max-block-depth", type=int, default=5)
-    parser.add_argument("--csmith-stop-by-stmt", type=int, default=100)
-    parser.add_argument("--csmith-seed", type=int, default=0)
+    parser.add_argument("--csmith-max-expr-complexity", type=int, default=10, help="maximum expression complexity")
+    parser.add_argument("--csmith-max-block-depth", type=int, default=5, help="maximum block depth")
+    parser.add_argument("--csmith-stop-by-stmt", type=int, default=100, help="stop generating code after this many statements")
+    parser.add_argument("--csmith-seed", type=int, default=0, help="seed for csmith")
     parser.add_argument("--creduce", type=str, help="path to creduce", required=True)
     parser.add_argument(
         "--candidates", type=int, help="number of cvsise canidates", default=20
     )
     parser.add_argument("--compiler", type=str, help="path to compiler", required=True)
     parser.add_argument("--compiler-flag", type=str, help="compiler flag", default="")
-    parser.add_argument("--regenerate", action="store_true", help="Generate new code if no new candidates are found for the current initial code", default=False)
+    parser.add_argument("--regenerate", action="store_true", help="generate new code if no new candidates are found for the current initial code", default=False)
 
     # Parse arguments
     args = parser.parse_args()
