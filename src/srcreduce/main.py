@@ -11,6 +11,7 @@ sys.path.append(os.getcwd()+"/src/srcreduce/diopter")
 from diopter.compiler import Language
 from diopter.compiler import SourceProgram
 from diopter.sanitizer import Sanitizer
+from statistics import mean, quantiles
 
 
 logging.basicConfig(
@@ -20,6 +21,31 @@ logging.basicConfig(
     filename="srcreduce.log",
     filemode='a'
 )
+
+class PercentileList:
+    def __init__(self):
+        self.percentile_list = []
+
+    def add_item(self, item):
+        self.percentile_list.append(item)
+        self.percentile_list.sort()
+
+    def get_mean(self):
+        return mean(self.percentile_list)
+    
+    # Return 1st and 99th percentile
+    def get_percentile(self):
+        quant = quantiles(self.percentile_list, n=100)
+        return (quant[1], quant[98])
+    
+    # Checks whether 99th percentiles are within 5% of the mean
+    def check_percentile(self):
+        current_mean = self.get_mean()
+        lower_bound = current_mean - 0.05*current_mean
+        upper_bound = current_mean + 0.05*current_mean
+        lower_quant, upper_quant = self.get_percentile()
+        return lower_bound <= lower_quant and upper_quant <= upper_bound
+
 
 def generate_source_code(args):
     if args.example is not None:
@@ -59,7 +85,7 @@ def gen_and_save_src_code(args, init_iter):
 
     return src_code_path
 
-def new_run(args):
+def new_run(args, opt_category_param='', save_iters=False):
     start_time: int = time.time()
     # counts iterations
     iter: int = 0
@@ -72,12 +98,19 @@ def new_run(args):
     best_code_init = None
     next_code_path = None
     next_code_heuristic = None
-    next_code_init = None
+    next_code_init = args.output + "/init0.c"
 
     first_candidate = gen_and_save_src_code(args, init_iter)
     candidates_pq.append((0, first_candidate))
+
+    if save_iters:
+        size, bin_size = calculate_source_and_binary_size(args, next_code_init)
+        with open(args.batch_output_csv, "a+") as f:
+            f.write(f"Source,{size},0\n")
+            f.write(f"Binary,{bin_size},0\n") 
     
     logging.info("Reducing")
+    start_time = time.time()
 
     while start_time + args.timeout > time.time() and iter < args.max_iterations:
         iter += 1
@@ -127,12 +160,21 @@ def new_run(args):
         candidates_pq.sort(reverse=True)
         if len(candidates_pq) == 0:
             logging.info("No new candidates this iteration")
+            if save_iters:
+                with open(args.batch_output_csv, "a+") as f:
+                    f.write(f"Source,{size},{iter}\n")
+                    f.write(f"Binary,{bin_size},{iter}\n") 
         else:
             best_candidate_this_iter = candidates_pq[0][1]
             best_heuristic_this_iter = candidates_pq[0][0]
+            size, bin_size = calculate_source_and_binary_size(args, best_candidate_this_iter)
             logging.info("Best candidate this iteration: %s", best_candidate_this_iter)
             logging.info("Best heuristic value this iteration: %f", best_heuristic_this_iter)
-            logging.info("Best candidate info: %s", calculate_source_and_binary_size(args, best_candidate_this_iter))
+            logging.info("Best candidate info: %s", (size, bin_size))
+            if save_iters:
+                with open(args.batch_output_csv, "a+") as f:
+                    f.write(f"Source,{size},{iter}\n")
+                    f.write(f"Binary,{bin_size},{iter}\n") 
             if best_code_heuristic is None or best_heuristic_this_iter > best_code_heuristic:
                 logging.info("This iters best is global best")
                 best_code_path = best_candidate_this_iter
@@ -146,13 +188,24 @@ def new_run(args):
     logging.info("The best code was %s", best_code_path)
     logging.info("with heuristic %f", best_code_heuristic)
     logging.info("derived from %s", best_code_init)
-    # Used to print info in the end
-    calculate_heuristic_value(args, best_code_init, best_code_path)
+
+    # Used to print info in the end and retrieve info in batch mode
+    info_dict = {}
+    if args.batch_measurements is not None and not save_iters:
+        calculate_heuristic_value(args, best_code_init, best_code_path, retrieve_info=info_dict)
+        with open(args.batch_output_csv, "a+") as f:
+            f.write(f"Source,{info_dict['src']},{opt_category_param}\n")
+            f.write(f"Binary,{info_dict['bin']},{opt_category_param}\n")
+    else:
+        calculate_heuristic_value(args, best_code_init, best_code_path)
 
     if iter == args.max_iterations:
         logging.info("Finished after %d iterations", iter)
     else:
         logging.info("Finished after %d seconds", time.time() - start_time)
+
+    if args.batch_measurements is not None and not save_iters:
+        return info_dict['src'], info_dict['bin']
 
 
 def calculate_source_and_binary_size(args, source_code_path):
@@ -215,6 +268,7 @@ def calculate_heuristic_value(
     original_source_code_path,
     reduced_source_code_path,
     candidates_info=None,
+    retrieve_info=None
 ) -> float:
     # Size of the .text-section from the binary sample (larger is better).
     # (2) Size of the corresponding code sample (must not be larger than the original, smaller is better).
@@ -264,6 +318,10 @@ def calculate_heuristic_value(
     # skipping assignment if no condidates_info provided
     if candidates_info is not None:
         candidates_info[reduced_source_code_path] = (reduced_source_code_size, reduced_bin_size)
+
+    if retrieve_info is not None:
+        retrieve_info['src'] = reduced_source_code_size
+        retrieve_info['bin'] = reduced_bin_size
 
     return reduced_bin_size / reduced_source_code_size
 
@@ -380,6 +438,15 @@ def get_random_file_name() -> str:
         random.choice(string.ascii_lowercase + string.digits) for _ in range(10)
     )
 
+def cleanup_or_create_output_folder(args) -> None:
+    # Cleanup output dir
+    if not os.path.exists(args.output):
+        os.makedirs(args.output)
+    else:
+        # Remove everything in the output directory
+        shutil.rmtree(args.output)
+        os.makedirs(args.output)
+
 
 def main():
     # Create argument parser
@@ -439,6 +506,9 @@ def main():
     parser.add_argument("--compiler-flag", type=str, help="compiler flag", default="")
     parser.add_argument("--regenerate", action="store_true", help="generate new code if no new candidates are found for the current initial code", default=False)
 
+    parser.add_argument("--batch-measurements", type=str, help="Special mode used by developers to collect a lot of measurements used to create plots", default=None)
+    parser.add_argument("--batch-output-csv", type=str, help="Used together with batch measurement mode, specifies path to output csv file", default='data.csv')
+
     # Parse arguments
     args = parser.parse_args()
 
@@ -454,23 +524,111 @@ def main():
         logging.error("Example file does not exist: %s", args.example)
         sys.exit(1)
 
-    # Cleanup output dir
-    if not os.path.exists(args.output):
-        os.makedirs(args.output)
-    else:
-        # Remove everything in the output directory
-        shutil.rmtree(args.output)
-        os.makedirs(args.output)
+    cleanup_or_create_output_folder(args)
 
-    # Run framework
-    logging.info("Running framework")
-    try:
-        new_run(args)
-    finally:
-        logging.info("Done")
-        for item in os.listdir(os.getcwd()):
-            if item.endswith(".orig") or item.endswith(".c"):
-                os.remove(item)
+    # Run framework normally
+    if args.batch_measurements is None:
+        logging.info("Running framework normally")
+        try:
+            new_run(args)
+        finally:
+            logging.info("Done")
+            for item in os.listdir(os.getcwd()):
+                if item.endswith(".orig") or item.endswith(".c"):
+                    os.remove(item)
+    # Run framework in batch measurement mode
+    elif args.batch_measurements == 'complexity':
+        i = 0
+        output_folder_base = args.output
+        complexity_params = {'Low': (5, 2, 50), 'Medium': (10, 5, 100), 'High': (15, 8, 150)}
+        with open(args.batch_output_csv, "w") as f:
+            f.write("type,size,category\n")
+        for (complexity, level) in complexity_params.items():
+            (args.csmith_max_expr_complexity, args.csmith_max_block_depth, args.csmith_stop_by_stmt) = level
+            logging.info("Expr compl is " + str(args.csmith_max_expr_complexity))
+            bin_sizes_perc_list = PercentileList()
+            src_sizes_perc_list = PercentileList()
+            #while not (i >= 10 and src_sizes_perc_list.check_percentile() and bin_sizes_perc_list.check_percentile()):
+            for _ in range(10):
+                i += 1
+                args.output = output_folder_base + str(i)
+                cleanup_or_create_output_folder(args)
+                try:
+                    src_size, bin_size = new_run(args, opt_category_param=complexity)
+                    src_sizes_perc_list.add_item(src_size)
+                    bin_sizes_perc_list.add_item(bin_size)
+                finally:
+                    logging.info("Done")
+                    for item in os.listdir(os.getcwd()):
+                        if item.endswith(".orig") or item.endswith(".c"):
+                            os.remove(item)
+    elif args.batch_measurements == 'optimizations':
+        i = 0
+        output_folder_base = args.output
+        optimization_params = ['O0', 'O1', 'O2', 'O3']
+        with open(args.batch_output_csv, "w") as f:
+            f.write("type,size,category\n")
+        for level in optimization_params:
+            args.compiler_flag = level
+            logging.info("Compiler flag is " + str(args.compiler_flag))
+            bin_sizes_perc_list = PercentileList()
+            src_sizes_perc_list = PercentileList()
+            #while not (i >= 10 and src_sizes_perc_list.check_percentile() and bin_sizes_perc_list.check_percentile()):
+            for _ in range(10):
+                i += 1
+                args.output = output_folder_base + str(i)
+                cleanup_or_create_output_folder(args)
+                try:
+                    src_size, bin_size = new_run(args, opt_category_param=level)
+                    src_sizes_perc_list.add_item(src_size)
+                    bin_sizes_perc_list.add_item(bin_size)
+                finally:
+                    logging.info("Done")
+                    for item in os.listdir(os.getcwd()):
+                        if item.endswith(".orig") or item.endswith(".c"):
+                            os.remove(item)
+    elif args.batch_measurements == 'timeout':
+        i = 0
+        output_folder_base = args.output
+        timeout_params = {'5': (5, 25), '10': (10, 50), '15': (15, 75), '20': (20, 100), '25': (25, 125)}
+        with open(args.batch_output_csv, "w") as f:
+            f.write("type,size,category\n")
+        for (timeout_str, timeouts) in timeout_params.items():
+            (args.timeout_creduce, args.timeout_creduce_iteration) = timeouts
+            logging.info("Creduce timeout is " + str(args.timeout_creduce))
+            bin_sizes_perc_list = PercentileList()
+            src_sizes_perc_list = PercentileList()
+            #while not (i >= 10 and src_sizes_perc_list.check_percentile() and bin_sizes_perc_list.check_percentile()):
+            for _ in range(10):
+                i += 1
+                args.output = output_folder_base + str(i)
+                cleanup_or_create_output_folder(args)
+                try:
+                    src_size, bin_size = new_run(args, opt_category_param=timeout_str)
+                    src_sizes_perc_list.add_item(src_size)
+                    bin_sizes_perc_list.add_item(bin_size)
+                finally:
+                    logging.info("Done")
+                    for item in os.listdir(os.getcwd()):
+                        if item.endswith(".orig") or item.endswith(".c"):
+                            os.remove(item)
+    elif args.batch_measurements == 'single':
+        i = 0 
+        output_folder_base = args.output
+        with open(args.batch_output_csv, "w") as f:
+            f.write("type,size,category\n")
+        for _ in range(10):
+            i += 1
+            args.output = output_folder_base + str(i)
+            cleanup_or_create_output_folder(args)
+            try:
+                new_run(args, save_iters=True)
+            finally:
+                logging.info("Done")
+                for item in os.listdir(os.getcwd()):
+                    if item.endswith(".orig") or item.endswith(".c"):
+                        os.remove(item)
+
 
 
 if __name__ == "__main__":

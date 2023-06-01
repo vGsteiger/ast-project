@@ -6,6 +6,7 @@ import argparse
 from operator import attrgetter
 import os
 import statistics
+import sys
 
 # Constants
 TEMP_FILE = "data.csv"
@@ -158,10 +159,6 @@ class TestRun:
 def create_plots(log_file, plot_folder):
     # Read log file
     srcreduce_log = open(log_file, "r").read()
-
-    # Create plot output folder
-    if not os.path.exists(plot_folder):
-        os.makedirs(plot_folder)
 
     # Creating TestRun objects
     runs_metadata = start_of_iteration_pattern.split(srcreduce_log)[1:]
@@ -348,7 +345,45 @@ def create_plots(log_file, plot_folder):
 #######################################################################################
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser()
-    argparser.add_argument("log_file", help="Path to the (cleaned) log file")
+    argparser.add_argument("input_file", help="Path to the (cleaned) log file or the CSV file")
     argparser.add_argument("plot_folder", help="Path to the output plot folder")
+    argparser.add_argument("--input-as-csv", action="store_true", default=False, help="Specifies whether input is a CSV or LOG file")
+    argparser.add_argument("--csv-type", type=str, default=None, help="Specifies which type of data the csv contains (complexity, optimizations, timeout, single)")
     args = argparser.parse_args()
-    create_plots(args.log_file, args.plot_folder)
+    
+    # Create plot output folder
+    if not os.path.exists(args.plot_folder):
+        os.makedirs(args.plot_folder)
+    
+    if not args.input_as_csv:
+        create_plots(args.log_file, args.plot_folder)
+    elif args.csv_type not in ['complexity', 'optimizations', 'timeout', 'single']:
+        print("ERROR: You specified to input a CSV, but did not specify a correct CSV type")
+        sys.exit(1)
+    else:
+        if args.csv_type == 'complexity':
+            order_of_x_ticks = ['Low', 'Medium', 'High']
+            x_label = 'Complexity'
+            output_file_name = "plot_complexity.png"
+        elif args.csv_type == 'optimizations':
+            order_of_x_ticks = ['O0', 'O1', 'O2', 'O3']
+            x_label = 'Compiler Optimization Flag'
+            output_file_name = "plot_optimizations.png"
+        elif args.csv_type == 'timeout':
+            x_label = 'C-Reduce Interestingness Test Timeout'
+            output_file_name = "plot_timeout.png"
+        elif args.csv_type == 'single':
+            x_label = 'Iterations'
+            output_file_name = "plot_best.png"
+        data = pd.read_csv(args.input_file)
+        data['size'] = data['size']/1000.0  # Convert bytes to kilobytes
+        sns.set_theme(style="whitegrid", palette="deep")
+        if args.csv_type in ['complexity', 'optimizations']:
+            res_plt = sns.catplot(data=data, x='category',y='size', hue='type', errorbar="se", kind='point',capsize=.2,order=order_of_x_ticks,legend=False).despine(left=True,bottom=True)
+        else:
+            res_plt = sns.catplot(data=data, x='category',y='size', hue='type', errorbar="se", kind='point',capsize=.2,legend=False).despine(left=True,bottom=True)  
+        res_plt.set(xlabel=x_label, ylabel="File Size [kB]")
+        plt.legend(title='', frameon=True)    
+        plt.tight_layout()
+        plt.savefig(os.path.join(args.plot_folder, output_file_name))
+        plt.clf()
