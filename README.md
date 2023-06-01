@@ -59,39 +59,36 @@ It can be used as follows:
 
 ```bash
 $ srcReduce -h
-usage: main.py [-h] [-v] [-o OUTPUT] [-s] [-t TIMEOUT] [--timeout-creduce TIMEOUT_CREDUCE]
-               [--timeout-creduce-iteration TIMEOUT_CREDUCE_ITERATION] [-m MAX_ITERATIONS] [-r] [-e EXAMPLE]
-               --csmith CSMITH --csmith-include CSMITH_INCLUDE [--csmith-max-expr-complexity CSMITH_MAX_EXPR_COMPLEXITY]
-               [--csmith-max-block-depth CSMITH_MAX_BLOCK_DEPTH] [--csmith-stop-by-stmt CSMITH_STOP_BY_STMT]
-               [--csmith-seed CSMITH_SEED]
-               --creduce CREDUCE
-               [--candidates CANDIDATES] --compiler COMPILER [--compiler-args COMPILER_ARGS] [--regenerate]
+usage: srcReduce [-h] [-v] [-o OUTPUT] [-t TIMEOUT] [--timeout-creduce TIMEOUT_CREDUCE] [--timeout-creduce-iteration TIMEOUT_CREDUCE_ITERATION]
+                 [-m MAX_ITERATIONS] [-r] [-e EXAMPLE] --csmith CSMITH --csmith-include CSMITH_INCLUDE
+                 [--csmith-max-expr-complexity CSMITH_MAX_EXPR_COMPLEXITY] [--csmith-max-block-depth CSMITH_MAX_BLOCK_DEPTH]
+                 [--csmith-stop-by-stmt CSMITH_STOP_BY_STMT] [--csmith-seed CSMITH_SEED] --creduce CREDUCE [--candidates CANDIDATES] --compiler COMPILER
+                 [--compiler-flag COMPILER_FLAG] [--regenerate]
 ```
 
 The following options are available:
 
 ```bash
-  -h, --help                        show this help message and exit
-  -v, --verbose                     show verbose output
-  -o OUTPUT, --output OUTPUT        output directory
-  -s, --show                        show the generated source code
-  -t TIMEOUT, --timeout TIMEOUT     timeout for the framework in seconds
-  --timeout-creduce TIMEOUT_CREDUCE timeout for creduce passes in seconds
-  --timeout-creduce-iteration TIMEOUT_CREDUCE_ITERATION timeout for creduce per iteration in seconds
-  -m MAX_ITERATIONS, --max-iterations MAX_ITERATIONS maximum number of iterations
-  -r, --random                      use random source code generation
-  -e EXAMPLE, --example EXAMPLE     use example source code generation based on the given example file
-  --csmith CSMITH                   path to csmith
-  --csmith-include CSMITH_INCLUDE   path to csmith include
-  --csmith-max-expr-complexity      maximum expression complexity for csmith
-  --csmith-max-block-depth          maximum block depth for csmith
-  --csmith-stop-by-stmt             stop csmith generation after the given number of statements
-  --csmith-seed                     seed for csmith
-  --creduce CREDUCE                 path to creduce
-  --candidates CANDIDATES           number of cvsise canidates
-  --compiler COMPILER               path to compiler
-  --compiler-args COMPILER_ARGS     compiler arguments
-  --regenerate                      regenerate with csmith the source code if no new candidate was found
+  -h, --help                                                show this help message and exit
+  -v, --verbose                                             show verbose output
+  -o OUTPUT, --output OUTPUT                                output directory
+  -t TIMEOUT, --timeout TIMEOUT                             timeout for the framework in seconds
+  --timeout-creduce TIMEOUT_CREDUCE                         timeout for creduce passes in seconds
+  --timeout-creduce-iteration TIMEOUT_CREDUCE_ITERATION     timeout for creduce per iteration in seconds
+  -m MAX_ITERATIONS, --max-iterations MAX_ITERATIONS        maximum number of iterations
+  -r, --random                                              use random source code generation
+  -e EXAMPLE, --example EXAMPLE                             use example source code generation based on the given example file
+  --csmith CSMITH                                           path to csmith
+  --csmith-include CSMITH_INCLUDE                           path to csmith include
+  --csmith-max-expr-complexity CSMITH_MAX_EXPR_COMPLEXITY   maximum expression complexity
+  --csmith-max-block-depth CSMITH_MAX_BLOCK_DEPTH           maximum block depth
+  --csmith-stop-by-stmt CSMITH_STOP_BY_STMT                 stop generating code after this many statements
+  --csmith-seed CSMITH_SEED                                 seed for csmith
+  --creduce CREDUCE                                         path to creduce
+  --candidates CANDIDATES                                   number of cvsise canidates
+  --compiler COMPILER                                       path to compiler
+  --compiler-flag COMPILER_FLAG                             compiler flag
+  --regenerate                                              generate new code if no new candidates are found for the current initial code
 ```
 
 ### Example
