@@ -355,11 +355,14 @@ if __name__ == "__main__":
     if not os.path.exists(args.plot_folder):
         os.makedirs(args.plot_folder)
     
+    # Standard mode
     if not args.input_as_csv:
         create_plots(args.log_file, args.plot_folder)
+    # Catch usage error and print friendly message
     elif args.csv_type not in ['complexity', 'optimizations', 'timeout', 'single']:
         print("ERROR: You specified to input a CSV, but did not specify a correct CSV type")
         sys.exit(1)
+    # Specific predefined plots used for the results of the batch modes of the main script
     else:
         data = pd.read_csv(args.input_file)
         data['size'] = data['size']/1000.0  # Convert bytes to kilobytes

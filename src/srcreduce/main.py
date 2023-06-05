@@ -33,17 +33,19 @@ class PercentileList:
     def get_mean(self):
         return mean(self.percentile_list)
     
-    # Return 1st and 99th percentile
-    def get_percentile(self):
+    # Return percentiles at beginning and end of list (default: 1st and 99th percentile)
+    def get_percentile(self, percentile=99):
+        assert 0 < percentile < 100
         quant = quantiles(self.percentile_list, n=100)
-        return (quant[1], quant[98])
+        return (quant[100 - percentile], quant[percentile - 1])
     
-    # Checks whether 99th percentiles are within 5% of the mean
-    def check_percentile(self):
+    # Checks whether the percentiles are within dist_of_mean percent of the mean
+    def check_percentile(self, percentile=99, dist_from_mean=0.05):
+        assert 0 < dist_from_mean < 0.5
         current_mean = self.get_mean()
-        lower_bound = current_mean - 0.05*current_mean
-        upper_bound = current_mean + 0.05*current_mean
-        lower_quant, upper_quant = self.get_percentile()
+        lower_bound = current_mean - dist_from_mean*current_mean
+        upper_bound = current_mean + dist_from_mean*current_mean
+        lower_quant, upper_quant = self.get_percentile(percentile)
         return lower_bound <= lower_quant and upper_quant <= upper_bound
 
 
@@ -506,8 +508,8 @@ def main():
     parser.add_argument("--compiler-flag", type=str, help="compiler flag", default="")
     parser.add_argument("--regenerate", action="store_true", help="generate new code if no new candidates are found for the current initial code", default=False)
 
-    parser.add_argument("--batch-measurements", type=str, help="Special mode used by developers to collect a lot of measurements used to create plots", default=None)
-    parser.add_argument("--batch-output-csv", type=str, help="Used together with batch measurement mode, specifies path to output csv file", default='data.csv')
+    parser.add_argument("--batch-measurements", type=str, help="special modes used to collect a lot of measurements in order to create plots", default=None)
+    parser.add_argument("--batch-output-csv", type=str, help="used together with batch measurement mode, specifies path to output csv file", default='data.csv')
 
     # Parse arguments
     args = parser.parse_args()
@@ -537,6 +539,7 @@ def main():
                 if item.endswith(".orig") or item.endswith(".c"):
                     os.remove(item)
     # Run framework in batch measurement mode
+    # In this mode, iterate through different complexities (discard passed arguments)
     elif args.batch_measurements == 'complexity':
         i = 0
         output_folder_base = args.output
@@ -548,7 +551,8 @@ def main():
             logging.info("Expr compl is " + str(args.csmith_max_expr_complexity))
             bin_sizes_perc_list = PercentileList()
             src_sizes_perc_list = PercentileList()
-            #while not (i >= 10 and src_sizes_perc_list.check_percentile() and bin_sizes_perc_list.check_percentile()):
+            # The next line can be used to continue until all sizes within a given percentile are only up to a certain percentage away from the mean
+            # while not (i >= 10 and src_sizes_perc_list.check_percentile() and bin_sizes_perc_list.check_percentile()):
             for _ in range(10):
                 i += 1
                 args.output = output_folder_base + str(i)
@@ -563,6 +567,7 @@ def main():
                         if item.endswith(".orig") or item.endswith(".c"):
                             os.remove(item)
                     continue
+    # In this mode, iterate through different compiler flags (discard passed arguments)
     elif args.batch_measurements == 'optimizations':
         i = 0
         output_folder_base = args.output
@@ -574,7 +579,8 @@ def main():
             logging.info("Compiler flag is " + str(args.compiler_flag))
             bin_sizes_perc_list = PercentileList()
             src_sizes_perc_list = PercentileList()
-            #while not (i >= 10 and src_sizes_perc_list.check_percentile() and bin_sizes_perc_list.check_percentile()):
+            # The next line can be used to continue until all sizes within a given percentile are only up to a certain percentage away from the mean
+            # while not (i >= 10 and src_sizes_perc_list.check_percentile() and bin_sizes_perc_list.check_percentile()):
             for _ in range(10):
                 i += 1
                 args.output = output_folder_base + str(i)
@@ -589,6 +595,7 @@ def main():
                         if item.endswith(".orig") or item.endswith(".c"):
                             os.remove(item)
                     continue
+    # In this mode, iterate through different creduce timeouts (discard passed arguments)
     elif args.batch_measurements == 'timeout':
         i = 0
         output_folder_base = args.output
@@ -600,7 +607,8 @@ def main():
             logging.info("Creduce timeout is " + str(args.timeout_creduce))
             bin_sizes_perc_list = PercentileList()
             src_sizes_perc_list = PercentileList()
-            #while not (i >= 10 and src_sizes_perc_list.check_percentile() and bin_sizes_perc_list.check_percentile()):
+            # The next line can be used to continue until all sizes within a given percentile are only up to a certain percentage away from the mean
+            # while not (i >= 10 and src_sizes_perc_list.check_percentile() and bin_sizes_perc_list.check_percentile()):
             for _ in range(10):
                 i += 1
                 args.output = output_folder_base + str(i)
@@ -620,7 +628,7 @@ def main():
         output_folder_base = args.output
         with open(args.batch_output_csv, "w") as f:
             f.write("type,size,category\n")
-        for _ in range(2):
+        for _ in range(10):
             i += 1
             args.output = output_folder_base + str(i)
             cleanup_or_create_output_folder(args)
