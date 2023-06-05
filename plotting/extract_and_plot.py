@@ -361,29 +361,37 @@ if __name__ == "__main__":
         print("ERROR: You specified to input a CSV, but did not specify a correct CSV type")
         sys.exit(1)
     else:
+        data = pd.read_csv(args.input_file)
+        data['size'] = data['size']/1000.0  # Convert bytes to kilobytes
         if args.csv_type == 'complexity':
             order_of_x_ticks = ['Low', 'Medium', 'High']
             x_label = 'Complexity'
-            output_file_name = "plot_complexity.png"
+            output_file_name = "plot_complexity.pdf"
+            res_plt = sns.catplot(data=data, x='category',y='size', hue='type', errorbar="se", kind='point',capsize=.2,order=order_of_x_ticks,legend=False).despine(left=False,bottom=False,top=False,right=False)
+            plt.annotate("Source Code Size", (1.4, 5.2), color='#1f77b4')
+            plt.annotate("Binary File Size", (-0.46, 3.4), color="#ff7f0e")
         elif args.csv_type == 'optimizations':
             order_of_x_ticks = ['O0', 'O1', 'O2', 'O3']
             x_label = 'Compiler Optimization Flag'
-            output_file_name = "plot_optimizations.png"
+            output_file_name = "plot_optimizations.pdf"
+            res_plt = sns.catplot(data=data, x='category',y='size', hue='type', errorbar="se", kind='point',capsize=.2,order=order_of_x_ticks,legend=False).despine(left=False,bottom=False,top=False,right=False)
+            plt.annotate("Source Code Size", (2.2, 4.8), color='#1f77b4')
+            plt.annotate("Binary File Size", (-0.46, 8.1), color="#ff7f0e")
         elif args.csv_type == 'timeout':
             x_label = 'C-Reduce Interestingness Test Timeout'
-            output_file_name = "plot_timeout.png"
+            output_file_name = "plot_timeout.pdf"
+            res_plt = sns.catplot(data=data, x='category',y='size', hue='type', errorbar="se", kind='point',capsize=.2,legend=False).despine(left=False,bottom=False,top=False,right=False)
+            plt.annotate("Source Code Size", (1.2, 7), color='#1f77b4')
+            plt.annotate("Binary File Size", (2.05, 4.3), color="#ff7f0e")
         elif args.csv_type == 'single':
             x_label = 'Iterations'
-            output_file_name = "plot_best.png"
-        data = pd.read_csv(args.input_file)
-        data['size'] = data['size']/1000.0  # Convert bytes to kilobytes
-        sns.set_theme(style="whitegrid", palette="deep")
-        if args.csv_type in ['complexity', 'optimizations']:
-            res_plt = sns.catplot(data=data, x='category',y='size', hue='type', errorbar="se", kind='point',capsize=.2,order=order_of_x_ticks,legend=False).despine(left=True,bottom=True)
-        else:
-            res_plt = sns.catplot(data=data, x='category',y='size', hue='type', errorbar="se", kind='point',capsize=.2,legend=False).despine(left=True,bottom=True)  
+            output_file_name = "plot_best.pdf"
+            res_plt = sns.catplot(data=data, x='category',y='size', hue='type', errorbar="se", kind='point',capsize=.2,legend=False).despine(left=False,bottom=False,top=False,right=False)
+            plt.annotate("Source Code Size", (1.45, 1), color='#1f77b4')
+            plt.annotate("Binary File Size", (1.45, 10.65), color="#ff7f0e")
+
         res_plt.set(xlabel=x_label, ylabel="File Size [kB]")
-        plt.legend(title='', frameon=True)    
         plt.tight_layout()
+        plt.grid()
         plt.savefig(os.path.join(args.plot_folder, output_file_name))
         plt.clf()

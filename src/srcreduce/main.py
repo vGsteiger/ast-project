@@ -562,6 +562,7 @@ def main():
                     for item in os.listdir(os.getcwd()):
                         if item.endswith(".orig") or item.endswith(".c"):
                             os.remove(item)
+                    continue
     elif args.batch_measurements == 'optimizations':
         i = 0
         output_folder_base = args.output
@@ -587,6 +588,7 @@ def main():
                     for item in os.listdir(os.getcwd()):
                         if item.endswith(".orig") or item.endswith(".c"):
                             os.remove(item)
+                    continue
     elif args.batch_measurements == 'timeout':
         i = 0
         output_folder_base = args.output
@@ -612,12 +614,13 @@ def main():
                     for item in os.listdir(os.getcwd()):
                         if item.endswith(".orig") or item.endswith(".c"):
                             os.remove(item)
+                    continue
     elif args.batch_measurements == 'single':
         i = 0 
         output_folder_base = args.output
         with open(args.batch_output_csv, "w") as f:
             f.write("type,size,category\n")
-        for _ in range(10):
+        for _ in range(2):
             i += 1
             args.output = output_folder_base + str(i)
             cleanup_or_create_output_folder(args)
@@ -628,6 +631,7 @@ def main():
                 for item in os.listdir(os.getcwd()):
                     if item.endswith(".orig") or item.endswith(".c"):
                         os.remove(item)
+                continue
 
 
 
