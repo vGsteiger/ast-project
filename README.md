@@ -63,7 +63,7 @@ usage: srcReduce [-h] [-v] [-o OUTPUT] [-t TIMEOUT] [--timeout-creduce TIMEOUT_C
                  [-m MAX_ITERATIONS] [-r] [-e EXAMPLE] --csmith CSMITH --csmith-include CSMITH_INCLUDE
                  [--csmith-max-expr-complexity CSMITH_MAX_EXPR_COMPLEXITY] [--csmith-max-block-depth CSMITH_MAX_BLOCK_DEPTH]
                  [--csmith-stop-by-stmt CSMITH_STOP_BY_STMT] [--csmith-seed CSMITH_SEED] --creduce CREDUCE [--candidates CANDIDATES] --compiler COMPILER
-                 [--compiler-flag COMPILER_FLAG] [--regenerate]
+                 [--compiler-flag COMPILER_FLAG] [--regenerate] [--batch-measurements BATCH_MEASUREMENTS] [--batch-output-csv BATCH_OUTPUT_CSV]
 ```
 
 The following options are available:
@@ -89,6 +89,8 @@ The following options are available:
   --compiler COMPILER                                       path to compiler
   --compiler-flag COMPILER_FLAG                             compiler flag
   --regenerate                                              generate new code if no new candidates are found for the current initial code
+  --batch-measurements BATCH_MEASUREMENTS                   special modes used to collect a lot of measurements in order to create plots
+  --batch-output-csv BATCH_OUTPUT_CSV                       used together with batch measurement mode, specifies path to output csv file
 ```
 
 ### Example
